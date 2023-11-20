@@ -1,8 +1,44 @@
 --- COMANDOS PARA CRIAÇÃO DAS TABELAS E SEUS RELACIONAMENTOS ---
+CREATE TABLE Produtos(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NULL,
+	fabricante VARCHAR(100) NULL,
+    codigo_de_barra INT NULL
+);
+CREATE TABLE Farmacias(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NULL
+);
+CREATE TABLE Cidades(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NULL,
+    uf VARCHAR(100) NULL
+);
+CREATE TABLE Lotes(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    produto_id INT NULL,
+    lote VARCHAR(100) NULL,
+    data_validade DATE,
+    data_fabricacao DATE,
+    FOREIGN KEY (produto_id) REFERENCES Produtos(id)
+);
+CREATE TABLE Estoque(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    lote_id INT NULL,
+    farmacia_id INT NULL,
+    quantidade INT NULL,
+    FOREIGN KEY (lote_id) REFERENCES Lotes(id)
+);
+CREATE TABLE Unidades(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    farmacia_id INT NULL,
+    cidade_id INT NULL,
+    nome VARCHAR(100) NULL,
+	FOREIGN KEY (farmacia_id) REFERENCES Farmacias(id),
+    FOREIGN KEY (cidade_id) REFERENCES Cidades(id)
+);
 
 --- COMANDOS PARA POPULAÇÃO DAS TABELAS ---
-
-
 
 --- COMANDOS PARA A CONSULTA 1 ---
 
