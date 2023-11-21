@@ -37,6 +37,60 @@ CREATE TABLE EstoqueUnidade (
     FOREIGN KEY (estoque_id) REFERENCES Estoque(id),
     FOREIGN KEY (unidade_id) REFERENCES Unidades(id)
 );
+CREATE TABLE Clientes(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	nome VARCHAR(100) NULL,
+    telefone VARCHAR(100) NULL,
+    idade INT NULL
+);
+CREATE TABLE Funcionarios(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	farmacia_id INT NULL,
+    nome VARCHAR(100) NULL,
+    email VARCHAR(100) NULL,
+    cargo VARCHAR(100) NULL,
+    FOREIGN KEY (farmacia_id) REFERENCES Farmacias(id)
+);
+CREATE TABLE Telefones(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    funcionario_id INT NULL,
+    numero VARCHAR(100) NULL,
+    FOREIGN KEY (funcionario_id) REFERENCES Funcionarios(id)
+);
+CREATE TABLE Compras(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	farmacia_id INT NULL,
+    cliente_id INT NULL,
+    valor_total DOUBLE NULL,
+    FOREIGN KEY (farmacia_id) REFERENCES Farmacias(id),
+    FOREIGN KEY (cliente_id) REFERENCES Clientes(id)
+);
+CREATE TABLE Produtos_comprados(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	compra_id INT NULL,
+    produto_id INT NULL,
+    quantidade INT NULL,
+    data_hora_compra TIMESTAMP NULL, 
+    preco_unico INT NULL
+);
+CREATE TABLE Entregadores(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	nome VARCHAR(100) NULL
+);
+CREATE TABLE Retiradas(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	metodo VARCHAR(100) NULL,
+    data_hora_retirada TIMESTAMP NULL
+);
+CREATE TABLE Entregas(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	entregador_id INT NULL,
+    compra_id INT NULL,
+    retirada_id INT NULL,
+    FOREIGN KEY (entregador_id) REFERENCES Entregadores(id),
+    FOREIGN KEY (compra_id) REFERENCES Compras(id),
+    FOREIGN KEY (retirada_id) REFERENCES Retiradas(id)
+);
 
 --- COMANDOS PARA POPULAÇÃO DAS TABELAS ---
 INSERT INTO Produtos(nome, fabricante, codigo_de_barra, data_validade, data_fabricacao) VALUES 
@@ -95,6 +149,13 @@ INSERT INTO EstoqueUnidade(estoque_id, unidade_id) VALUES /*AS 5 FARMÁCIAS POSS
 (70,10),(71,11),(72,12), /*quantidade do produto 5 na farmácia 4*/
 (73,13),(74,14),(75,15);  /*quantidade do produto 5 na farmácia 5*/
 
+INSERT INTO Clientes(nome, telefone, idade) VALUES
+('João', '(61) 99999-9999', 57),
+('Maria', '(62) 88888-8888', 35),
+('Carlos', '(63) 77777-7777', 45),
+('Ana', '(64) 66666-6666', 28),
+('Pedro', '(65) 55555-5555', 50);
+
 --- COMANDOS PARA A CONSULTA 1 ---
 SELECT
     p.codigo_de_barra AS codigo,
@@ -144,6 +205,8 @@ WHERE
 
 
 --- COMANDOS PARA A CONSULTA 2 ---
+
+
 
 --- COMANDOS PARA A CONSULTA 3 ---
 

@@ -711,118 +711,6 @@
           },
           {
             "objectType": "Table_LOGICAL",
-            "name": "Compras",
-            "comment": "",
-            "oldName": "",
-            "fields": [
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "id",
-                "type": "INTEGER",
-                "length": 0,
-                "decimals": 0,
-                "isNullable": false,
-                "defaultType": "None",
-                "defaultValue": "",
-                "comment": "",
-                "oldName": "id"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "farmacia_id",
-                "type": "INTEGER",
-                "length": 0,
-                "decimals": 0,
-                "isNullable": true,
-                "defaultType": "None",
-                "defaultValue": "",
-                "comment": "",
-                "oldName": "farmacia_id"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "cliente_id",
-                "type": "INTEGER",
-                "length": 0,
-                "decimals": 0,
-                "isNullable": true,
-                "defaultType": "None",
-                "defaultValue": "",
-                "comment": "",
-                "oldName": "cliente_id"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "plataforma",
-                "type": "CHAR VARYING",
-                "length": 255,
-                "decimals": 0,
-                "isNullable": true,
-                "defaultType": "None",
-                "defaultValue": "",
-                "comment": "",
-                "oldName": "plataforma"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "valor_total",
-                "type": "DOUBLE PRECISION",
-                "length": 255,
-                "decimals": 0,
-                "isNullable": true,
-                "defaultType": "None",
-                "defaultValue": "",
-                "comment": "",
-                "oldName": "valor_total"
-              }
-            ],
-            "foreignKeys": [
-              {
-                "objectType": "ForeignKey_LOGICAL",
-                "name": "fk_Compras_Produtos_comprados_1",
-                "fields": [
-                  "id"
-                ],
-                "referencedSchema": "default",
-                "referencedTable": "Produtos_comprados",
-                "referencedFields": [
-                  "compra_id"
-                ],
-                "sourceCardinality": "NoneRelationship",
-                "targetCardinality": "OneOrManyRelationship",
-                "comment": "",
-                "oldName": ""
-              },
-              {
-                "objectType": "ForeignKey_LOGICAL",
-                "name": "fk_Compras_Entregas_1",
-                "fields": [
-                  "id"
-                ],
-                "referencedSchema": "default",
-                "referencedTable": "Entregas",
-                "referencedFields": [
-                  "compra_id"
-                ],
-                "sourceCardinality": "NoneRelationship",
-                "targetCardinality": "ManyRelationship",
-                "comment": "",
-                "oldName": ""
-              }
-            ],
-            "indexes": [],
-            "uniques": [],
-            "primaryKey": {
-              "objectType": "PrimaryKey_LOGICAL",
-              "name": "",
-              "fields": [
-                "id"
-              ],
-              "oldName": ""
-            }
-          },
-          {
-            "objectType": "Table_LOGICAL",
             "name": "Produtos_comprados",
             "comment": "",
             "oldName": "",
@@ -1162,6 +1050,106 @@
               ],
               "oldName": ""
             }
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "Compras",
+            "comment": "",
+            "oldName": "",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "id",
+                "type": "INTEGER",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": false,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "farmacia_id",
+                "type": "INTEGER",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "farmacia_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "cliente_id",
+                "type": "INTEGER",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "cliente_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "valor_total",
+                "type": "DOUBLE PRECISION",
+                "length": 255,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "valor_total"
+              }
+            ],
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_Compras_Produtos_comprados_1",
+                "fields": [
+                  "id"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "Produtos_comprados",
+                "referencedFields": [
+                  "compra_id"
+                ],
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "OneOrManyRelationship",
+                "comment": "",
+                "oldName": ""
+              },
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_Compras_Entregas_1",
+                "fields": [
+                  "id"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "Entregas",
+                "referencedFields": [
+                  "compra_id"
+                ],
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "ManyRelationship",
+                "comment": "",
+                "oldName": ""
+              }
+            ],
+            "indexes": [],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [
+                "id"
+              ],
+              "oldName": ""
+            }
           }
         ]
       }
@@ -1265,9 +1253,9 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "Produtos_comprados",
-          "x": 810,
+          "x": 790,
           "y": 840,
-          "width": 200,
+          "width": 230,
           "height": 200,
           "isBold": false,
           "titleColor": {
@@ -1403,8 +1391,8 @@
           "x": 580,
           "y": 1000,
           "width": 150,
-          "height": 320,
-          "text": "Talvez o campo plataforma na tabela Compras não seja necessário... na tabela Retiradas temos o campo metodo que pode fazer referência a mesma coisa... (App, Portal ou Físico/Presencial)",
+          "height": 370,
+          "text": "Talvez o campo plataforma na tabela Compras não seja necessário... na tabela Retiradas temos o campo metodo que pode fazer referência a mesma coisa... (App, Portal ou Físico/Presencial).... retirado",
           "style": "note",
           "noteColor": {
             "r": 255,
@@ -1570,26 +1558,6 @@
           "isFontItalic": false
         },
         {
-          "type": "note",
-          "name": "Note 10",
-          "x": 730,
-          "y": 1080,
-          "width": 150,
-          "height": 190,
-          "text": "Talvez a Tabela Retiradas não seja necessária, posso manter apenas o campo plataforma",
-          "style": "note",
-          "noteColor": {
-            "r": 255,
-            "g": 157,
-            "b": 157,
-            "a": 1
-          },
-          "fontName": "Arial Unicode MS",
-          "fontSize": 14,
-          "isFontBold": false,
-          "isFontItalic": false
-        },
-        {
           "type": "table",
           "schemaName": "default",
           "tableName": "EstoqueUnidade",
@@ -1628,7 +1596,7 @@
               "y": 940
             },
             {
-              "x": 795,
+              "x": 775,
               "y": 940
             }
           ],
@@ -1712,7 +1680,7 @@
               "y": 940
             },
             {
-              "x": 1025,
+              "x": 1035,
               "y": 940
             }
           ],
