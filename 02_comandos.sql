@@ -149,12 +149,37 @@ INSERT INTO EstoqueUnidade(estoque_id, unidade_id) VALUES /*AS 5 FARMÁCIAS POSS
 (70,10),(71,11),(72,12), /*quantidade do produto 5 na farmácia 4*/
 (73,13),(74,14),(75,15);  /*quantidade do produto 5 na farmácia 5*/
 
-INSERT INTO Clientes(nome, telefone, idade) VALUES
+INSERT INTO Clientes(nome, telefone, idade) VALUES /*5*/
 ('João', '(61) 99999-9999', 57),
 ('Maria', '(62) 88888-8888', 35),
 ('Carlos', '(63) 77777-7777', 45),
 ('Ana', '(64) 66666-6666', 28),
 ('Pedro', '(65) 55555-5555', 50);
+
+-- Inserts para tabela Compras
+INSERT INTO Compras(farmacia_id, cliente_id, valor_total) VALUES
+(1, 1, 150.5), -- Compra 1 (DF)
+(2, 2, 75.25),  -- Compra 2 (DF)
+(3, 3, 200.0),  -- Compra 3 (CE)
+(4, 4, 120.75), -- Compra 4 (CE)
+(5, 5, 180.3);  -- Compra 5 (DF)
+
+-- Inserts para tabela Produtos_comprados
+INSERT INTO Produtos_comprados(compra_id, produto_id, quantidade, data_hora_compra, preco_unico) VALUES
+(1, 1, 3, '2023-01-15 10:30:00', 25.0),
+(1, 2, 2, '2023-01-15 10:30:00', 15.5),
+(1, 3, 1, '2023-01-15 10:30:00', 30.0),
+(2, 1, 5, '2023-02-05 15:45:00', 10.0),
+(2, 4, 3, '2023-02-05 15:45:00', 20.25),
+(3, 2, 2, '2023-03-10 08:20:00', 15.0),
+(3, 3, 4, '2023-03-10 08:20:00', 40.0),
+(3, 5, 1, '2023-03-10 08:20:00', 30.0),
+(4, 1, 3, '2023-04-20 12:15:00', 10.5),
+(4, 2, 2, '2023-04-20 12:15:00', 17.25),
+(4, 3, 5, '2023-04-20 12:15:00', 25.0),
+(5, 5, 2, '2023-05-30 17:10:00', 20.0),
+(5, 1, 3, '2023-05-30 17:10:00', 15.3),
+(5, 4, 1, '2023-05-30 17:10:00', 30.0);
 
 --- COMANDOS PARA A CONSULTA 1 ---
 SELECT
@@ -206,6 +231,42 @@ WHERE
 
 --- COMANDOS PARA A CONSULTA 2 ---
 
+SELECT
+    c.id,
+    c.nome,
+    c.telefone,
+    c.idade,
+    COUNT(co.id) AS nr_de_compras
+FROM
+    Clientes c
+JOIN
+    Compras co ON c.id = co.cliente_id
+JOIN
+    Unidades u ON co.farmacia_id = u.farmacia_id
+JOIN
+    Cidades ci ON u.cidade_id = ci.id
+WHERE
+    ci.uf = 'DF' -- Substitua pelo estado desejado (DF, MG, CE)
+GROUP BY
+    c.id, c.nome, c.telefone, c.idade
+HAVING
+    COUNT(co.id) = (
+        SELECT
+            COUNT(co_sub.id)
+        FROM
+            Compras co_sub
+        JOIN
+            Unidades u_sub ON co_sub.farmacia_id = u_sub.farmacia_id
+        JOIN
+            Cidades ci_sub ON u_sub.cidade_id = ci_sub.id
+        WHERE
+            ci_sub.uf = 'DF' -- Substitua pelo estado desejado (DF, MG, CE)
+        GROUP BY
+            co_sub.cliente_id
+        ORDER BY
+            COUNT(co_sub.id) DESC
+        LIMIT 1
+    );
 
 
 --- COMANDOS PARA A CONSULTA 3 ---
