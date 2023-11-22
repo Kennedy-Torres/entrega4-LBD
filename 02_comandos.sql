@@ -37,6 +37,60 @@ CREATE TABLE EstoqueUnidade (
     FOREIGN KEY (estoque_id) REFERENCES Estoque(id),
     FOREIGN KEY (unidade_id) REFERENCES Unidades(id)
 );
+CREATE TABLE Clientes(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	nome VARCHAR(100) NULL,
+    telefone VARCHAR(100) NULL,
+    idade INT NULL
+);
+CREATE TABLE Funcionarios(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	farmacia_id INT NULL,
+    nome VARCHAR(100) NULL,
+    email VARCHAR(100) NULL,
+    cargo VARCHAR(100) NULL,
+    FOREIGN KEY (farmacia_id) REFERENCES Farmacias(id)
+);
+CREATE TABLE Telefones(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    funcionario_id INT NULL,
+    numero VARCHAR(100) NULL,
+    FOREIGN KEY (funcionario_id) REFERENCES Funcionarios(id)
+);
+CREATE TABLE Compras(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	farmacia_id INT NULL,
+    cliente_id INT NULL,
+    valor_total DOUBLE NULL,
+    FOREIGN KEY (farmacia_id) REFERENCES Farmacias(id),
+    FOREIGN KEY (cliente_id) REFERENCES Clientes(id)
+);
+CREATE TABLE Produtos_comprados(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	compra_id INT NULL,
+    produto_id INT NULL,
+    quantidade INT NULL,
+    data_hora_compra TIMESTAMP NULL, 
+    preco_unico INT NULL
+);
+CREATE TABLE Entregadores(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	nome VARCHAR(100) NULL
+);
+CREATE TABLE Retiradas(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	metodo VARCHAR(100) NULL,
+    data_hora_retirada TIMESTAMP NULL
+);
+CREATE TABLE Entregas(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	entregador_id INT NULL,
+    compra_id INT NULL,
+    retirada_id INT NULL,
+    FOREIGN KEY (entregador_id) REFERENCES Entregadores(id),
+    FOREIGN KEY (compra_id) REFERENCES Compras(id),
+    FOREIGN KEY (retirada_id) REFERENCES Retiradas(id)
+);
 
 --- COMANDOS PARA POPULAÇÃO DAS TABELAS ---
 INSERT INTO Produtos(nome, fabricante, codigo_de_barra, data_validade, data_fabricacao) VALUES 
@@ -95,6 +149,55 @@ INSERT INTO EstoqueUnidade(estoque_id, unidade_id) VALUES /*AS 5 FARMÁCIAS POSS
 (70,10),(71,11),(72,12), /*quantidade do produto 5 na farmácia 4*/
 (73,13),(74,14),(75,15);  /*quantidade do produto 5 na farmácia 5*/
 
+INSERT INTO Clientes(nome, telefone, idade) VALUES /*5*/
+('João', '(61) 99999-9999', 57),
+('Maria', '(62) 88888-8888', 35),
+('Carlos', '(63) 77777-7777', 45),
+('Ana', '(64) 66666-6666', 28),
+('Pedro', '(65) 55555-5555', 50);
+
+-- Inserts para tabela Compras
+INSERT INTO Compras(farmacia_id, cliente_id, valor_total) VALUES
+(1, 1, 150.5), -- Compra 1 (DF)
+(1, 1, 75.25),  -- Compra 2 (DF)
+(3, 3, 200.0),  -- Compra 3 (CE)
+(4, 4, 120.75), -- Compra 4 (CE)
+(5, 5, 180.3),  -- Compra 5 (DF)
+(1, 1, 75.0),   -- Compra 6 (DF)
+(2, 2, 150.0),  -- Compra 7 (DF)
+(4, 4, 50.0),   -- Compra 8 (CE)
+(4, 4, 100.0),  -- Compra 9 (CE)
+(4, 4, 25.0);   -- Compra 10 (CE)
+
+-- Inserts para tabela Produtos_comprados
+INSERT INTO Produtos_comprados(compra_id, produto_id, quantidade, data_hora_compra, preco_unico) VALUES
+(1, 1, 10, '2023-01-15 10:30:00', 25.0),
+(1, 2, 2, '2023-01-15 10:30:00', 15.5),
+(1, 3, 1, '2023-01-15 10:30:00', 30.0),
+(2, 1, 5, '2023-02-05 15:45:00', 10.0),
+(2, 4, 3, '2023-02-05 15:45:00', 20.25),
+(3, 2, 2, '2023-03-10 08:20:00', 15.0),
+(3, 3, 4, '2023-03-10 08:20:00', 40.0),
+(3, 5, 1, '2023-03-10 08:20:00', 30.0),
+(4, 1, 3, '2023-04-20 12:15:00', 10.5),
+(4, 2, 2, '2023-04-20 12:15:00', 17.25),
+(4, 3, 5, '2023-04-20 12:15:00', 25.0),
+(5, 5, 2, '2023-05-30 17:10:00', 20.0),
+(5, 1, 3, '2023-05-30 17:10:00', 15.3),
+(5, 4, 1, '2023-05-30 17:10:00', 30.0),
+(6, 1, 2, '2023-06-12 14:30:00', 20.0),
+(6, 3, 1, '2023-06-12 14:30:00', 30.0),
+(7, 2, 3, '2023-07-05 09:45:00', 15.0),
+(7, 4, 2, '2023-07-05 09:45:00', 20.25),
+(8, 1, 1, '2023-08-20 11:00:00', 10.5),
+(8, 5, 2, '2023-08-20 11:00:00', 15.0),
+(9, 3, 3, '2023-09-15 16:15:00', 30.0),
+(9, 4, 1, '2023-09-15 16:15:00', 15.0),
+(10, 2, 2, '2023-10-25 13:30:00', 15.5),
+(10, 5, 1, '2023-10-25 13:30:00', 12.0);
+
+
+
 --- COMANDOS PARA A CONSULTA 1 ---
 SELECT
     p.codigo_de_barra AS codigo,
@@ -142,8 +245,9 @@ WHERE
     c.id = 1 AND p.codigo_de_barra = 71001; /*VALIDANDO A QUANTIDADE DOS PRODUTOS*/
 
 
-
 --- COMANDOS PARA A CONSULTA 2 ---
+CALL GetClienteCompras('DF'); -- opcoes 'DF','MG','CE'GetClienteComprasGetClienteCompras
+
 
 --- COMANDOS PARA A CONSULTA 3 ---
 
@@ -164,5 +268,49 @@ WHERE
 --- COMANDOS PARA CRIAÇÃO E EXEMPLO DE USO DA FUNÇÃO ---
 
 --- COMANDOS PARA CRIAÇÃO E EXEMPLO DE USO DA "STORED PROCEDURE" ---
+-- Criação da stored procedure
+DELIMITER //
+CREATE PROCEDURE GetClienteCompras(IN uf_param VARCHAR(2))
+BEGIN
+    SELECT
+        c.id,
+        c.nome,
+        c.telefone,
+        c.idade,
+        COUNT(co.id) AS nr_de_compras
+    FROM
+        Clientes c
+    JOIN
+        Compras co ON c.id = co.cliente_id
+    JOIN
+        Unidades u ON co.farmacia_id = u.farmacia_id
+    JOIN
+        Cidades ci ON u.cidade_id = ci.id
+    WHERE
+        ci.uf = uf_param
+    GROUP BY
+        c.id, c.nome, c.telefone, c.idade
+    HAVING
+        COUNT(co.id) = (
+            SELECT
+                COUNT(co_sub.id)
+            FROM
+                Compras co_sub
+            JOIN
+                Unidades u_sub ON co_sub.farmacia_id = u_sub.farmacia_id
+            JOIN
+                Cidades ci_sub ON u_sub.cidade_id = ci_sub.id
+            WHERE
+                ci_sub.uf = uf_param
+            GROUP BY
+                co_sub.cliente_id
+            ORDER BY
+                COUNT(co_sub.id) DESC
+            LIMIT 1
+        );
+END //
+DELIMITER ;
+-- Exemplo de uso na consulta 02
+CALL GetClienteCompras('MG');
 
 --- COMANDOS PARA CRIAÇÃO E EXEMPLO DE USO DA "TRIGGER" ---
