@@ -1388,11 +1388,11 @@
         {
           "type": "note",
           "name": "Note 3",
-          "x": 580,
-          "y": 1000,
+          "x": 570,
+          "y": 1200,
           "width": 150,
           "height": 190,
-          "text": "Na tabela Retiradas temos o campo metodo que pode fazer referência a  (App, Portal ou Físico/Presencial)retirado",
+          "text": "Na tabela Retiradas temos o campo metodo que pode fazer referência a  (App, Portal ou Físico/Presencial)",
           "style": "note",
           "noteColor": {
             "r": 255,
@@ -1510,26 +1510,6 @@
             "r": 200,
             "g": 255,
             "b": 160,
-            "a": 1
-          },
-          "fontName": "Arial Unicode MS",
-          "fontSize": 14,
-          "isFontBold": false,
-          "isFontItalic": false
-        },
-        {
-          "type": "note",
-          "name": "Note 9",
-          "x": 20,
-          "y": 1420,
-          "width": 280,
-          "height": 170,
-          "text": "PERGUNTA ! e se o usuario fizer várias compras em diferentes farmácias dentro do App??? Então o entregador vai ter muitas entregas, sendo que muitas entregas podem estar associadas a uma compra ",
-          "style": "note",
-          "noteColor": {
-            "r": 255,
-            "g": 200,
-            "b": 255,
             "a": 1
           },
           "fontName": "Arial Unicode MS",
