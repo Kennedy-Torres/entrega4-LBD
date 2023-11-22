@@ -1391,13 +1391,13 @@
           "x": 580,
           "y": 1000,
           "width": 150,
-          "height": 370,
-          "text": "Talvez o campo plataforma na tabela Compras não seja necessário... na tabela Retiradas temos o campo metodo que pode fazer referência a mesma coisa... (App, Portal ou Físico/Presencial).... retirado",
+          "height": 190,
+          "text": "Na tabela Retiradas temos o campo metodo que pode fazer referência a  (App, Portal ou Físico/Presencial)retirado",
           "style": "note",
           "noteColor": {
             "r": 255,
-            "g": 157,
-            "b": 157,
+            "g": 255,
+            "b": 132,
             "a": 1
           },
           "fontName": "Arial Unicode MS",
