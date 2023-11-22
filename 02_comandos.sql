@@ -159,14 +159,19 @@ INSERT INTO Clientes(nome, telefone, idade) VALUES /*5*/
 -- Inserts para tabela Compras
 INSERT INTO Compras(farmacia_id, cliente_id, valor_total) VALUES
 (1, 1, 150.5), -- Compra 1 (DF)
-(2, 2, 75.25),  -- Compra 2 (DF)
+(1, 1, 75.25),  -- Compra 2 (DF)
 (3, 3, 200.0),  -- Compra 3 (CE)
 (4, 4, 120.75), -- Compra 4 (CE)
-(5, 5, 180.3);  -- Compra 5 (DF)
+(5, 5, 180.3),  -- Compra 5 (DF)
+(1, 1, 75.0),   -- Compra 6 (DF)
+(2, 2, 150.0),  -- Compra 7 (DF)
+(4, 4, 50.0),   -- Compra 8 (CE)
+(4, 4, 100.0),  -- Compra 9 (CE)
+(4, 4, 25.0);   -- Compra 10 (CE)
 
 -- Inserts para tabela Produtos_comprados
 INSERT INTO Produtos_comprados(compra_id, produto_id, quantidade, data_hora_compra, preco_unico) VALUES
-(1, 1, 3, '2023-01-15 10:30:00', 25.0),
+(1, 1, 10, '2023-01-15 10:30:00', 25.0),
 (1, 2, 2, '2023-01-15 10:30:00', 15.5),
 (1, 3, 1, '2023-01-15 10:30:00', 30.0),
 (2, 1, 5, '2023-02-05 15:45:00', 10.0),
@@ -179,7 +184,19 @@ INSERT INTO Produtos_comprados(compra_id, produto_id, quantidade, data_hora_comp
 (4, 3, 5, '2023-04-20 12:15:00', 25.0),
 (5, 5, 2, '2023-05-30 17:10:00', 20.0),
 (5, 1, 3, '2023-05-30 17:10:00', 15.3),
-(5, 4, 1, '2023-05-30 17:10:00', 30.0);
+(5, 4, 1, '2023-05-30 17:10:00', 30.0),
+(6, 1, 2, '2023-06-12 14:30:00', 20.0),
+(6, 3, 1, '2023-06-12 14:30:00', 30.0),
+(7, 2, 3, '2023-07-05 09:45:00', 15.0),
+(7, 4, 2, '2023-07-05 09:45:00', 20.25),
+(8, 1, 1, '2023-08-20 11:00:00', 10.5),
+(8, 5, 2, '2023-08-20 11:00:00', 15.0),
+(9, 3, 3, '2023-09-15 16:15:00', 30.0),
+(9, 4, 1, '2023-09-15 16:15:00', 15.0),
+(10, 2, 2, '2023-10-25 13:30:00', 15.5),
+(10, 5, 1, '2023-10-25 13:30:00', 12.0);
+
+
 
 --- COMANDOS PARA A CONSULTA 1 ---
 SELECT
@@ -228,45 +245,8 @@ WHERE
     c.id = 1 AND p.codigo_de_barra = 71001; /*VALIDANDO A QUANTIDADE DOS PRODUTOS*/
 
 
-
 --- COMANDOS PARA A CONSULTA 2 ---
-
-SELECT
-    c.id,
-    c.nome,
-    c.telefone,
-    c.idade,
-    COUNT(co.id) AS nr_de_compras
-FROM
-    Clientes c
-JOIN
-    Compras co ON c.id = co.cliente_id
-JOIN
-    Unidades u ON co.farmacia_id = u.farmacia_id
-JOIN
-    Cidades ci ON u.cidade_id = ci.id
-WHERE
-    ci.uf = 'DF' -- Substitua pelo estado desejado (DF, MG, CE)
-GROUP BY
-    c.id, c.nome, c.telefone, c.idade
-HAVING
-    COUNT(co.id) = (
-        SELECT
-            COUNT(co_sub.id)
-        FROM
-            Compras co_sub
-        JOIN
-            Unidades u_sub ON co_sub.farmacia_id = u_sub.farmacia_id
-        JOIN
-            Cidades ci_sub ON u_sub.cidade_id = ci_sub.id
-        WHERE
-            ci_sub.uf = 'DF' -- Substitua pelo estado desejado (DF, MG, CE)
-        GROUP BY
-            co_sub.cliente_id
-        ORDER BY
-            COUNT(co_sub.id) DESC
-        LIMIT 1
-    );
+CALL GetClienteCompras('DF'); -- opcoes 'DF','MG','CE'GetClienteComprasGetClienteCompras
 
 
 --- COMANDOS PARA A CONSULTA 3 ---
@@ -288,5 +268,49 @@ HAVING
 --- COMANDOS PARA CRIAÇÃO E EXEMPLO DE USO DA FUNÇÃO ---
 
 --- COMANDOS PARA CRIAÇÃO E EXEMPLO DE USO DA "STORED PROCEDURE" ---
+-- Criação da stored procedure
+DELIMITER //
+CREATE PROCEDURE GetClienteCompras(IN uf_param VARCHAR(2))
+BEGIN
+    SELECT
+        c.id,
+        c.nome,
+        c.telefone,
+        c.idade,
+        COUNT(co.id) AS nr_de_compras
+    FROM
+        Clientes c
+    JOIN
+        Compras co ON c.id = co.cliente_id
+    JOIN
+        Unidades u ON co.farmacia_id = u.farmacia_id
+    JOIN
+        Cidades ci ON u.cidade_id = ci.id
+    WHERE
+        ci.uf = uf_param
+    GROUP BY
+        c.id, c.nome, c.telefone, c.idade
+    HAVING
+        COUNT(co.id) = (
+            SELECT
+                COUNT(co_sub.id)
+            FROM
+                Compras co_sub
+            JOIN
+                Unidades u_sub ON co_sub.farmacia_id = u_sub.farmacia_id
+            JOIN
+                Cidades ci_sub ON u_sub.cidade_id = ci_sub.id
+            WHERE
+                ci_sub.uf = uf_param
+            GROUP BY
+                co_sub.cliente_id
+            ORDER BY
+                COUNT(co_sub.id) DESC
+            LIMIT 1
+        );
+END //
+DELIMITER ;
+-- Exemplo de uso na consulta 02
+CALL GetClienteCompras('MG');
 
 --- COMANDOS PARA CRIAÇÃO E EXEMPLO DE USO DA "TRIGGER" ---
