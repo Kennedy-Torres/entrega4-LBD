@@ -76,88 +76,20 @@
                 "targetCardinality": "ManyRelationship",
                 "comment": "",
                 "oldName": ""
-              }
-            ],
-            "indexes": [],
-            "uniques": [],
-            "primaryKey": {
-              "objectType": "PrimaryKey_LOGICAL",
-              "name": "",
-              "fields": [
-                "id"
-              ],
-              "oldName": ""
-            }
-          },
-          {
-            "objectType": "Table_LOGICAL",
-            "name": "Clientes",
-            "comment": "",
-            "oldName": "",
-            "fields": [
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "id",
-                "type": "INTEGER",
-                "length": 0,
-                "decimals": 0,
-                "isNullable": false,
-                "defaultType": "None",
-                "defaultValue": "",
-                "comment": "",
-                "oldName": "id"
               },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "nome",
-                "type": "CHAR VARYING",
-                "length": 255,
-                "decimals": 0,
-                "isNullable": true,
-                "defaultType": "None",
-                "defaultValue": "",
-                "comment": "",
-                "oldName": "nome"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "telefone",
-                "type": "CHAR VARYING",
-                "length": 255,
-                "decimals": 0,
-                "isNullable": true,
-                "defaultType": "None",
-                "defaultValue": "",
-                "comment": "",
-                "oldName": "telefone"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "idade",
-                "type": "INTEGER",
-                "length": 255,
-                "decimals": 0,
-                "isNullable": true,
-                "defaultType": "None",
-                "defaultValue": "",
-                "comment": "",
-                "oldName": "idade"
-              }
-            ],
-            "foreignKeys": [
               {
                 "objectType": "ForeignKey_LOGICAL",
-                "name": "fk_Clientes_Compras_1",
+                "name": "fk_Cidades_Clientes_1",
                 "fields": [
                   "id"
                 ],
                 "referencedSchema": "default",
-                "referencedTable": "Compras",
+                "referencedTable": "Clientes",
                 "referencedFields": [
-                  "cliente_id"
+                  "cidade_id"
                 ],
                 "sourceCardinality": "NoneRelationship",
-                "targetCardinality": "ManyRelationship",
+                "targetCardinality": "NoneRelationship",
                 "comment": "",
                 "oldName": ""
               }
@@ -1070,17 +1002,17 @@
             "foreignKeys": [
               {
                 "objectType": "ForeignKey_LOGICAL",
-                "name": "fk_Funcionarios_Telefones_1",
+                "name": "fk_Funcionarios_TelefonesFuncionarios_1",
                 "fields": [
                   "id"
                 ],
                 "referencedSchema": "default",
-                "referencedTable": "Telefones",
+                "referencedTable": "TelefoneFuncionarios",
                 "referencedFields": [
                   "funcionario_id"
                 ],
                 "sourceCardinality": "NoneRelationship",
-                "targetCardinality": "OneOrManyRelationship",
+                "targetCardinality": "ManyRelationship",
                 "comment": "",
                 "oldName": ""
               }
@@ -1116,18 +1048,6 @@
               },
               {
                 "objectType": "TableField_LOGICAL",
-                "name": "funcionario_id",
-                "type": "INTEGER",
-                "length": 255,
-                "decimals": 0,
-                "isNullable": true,
-                "defaultType": "None",
-                "defaultValue": "",
-                "comment": "",
-                "oldName": "funcionario_id"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
                 "name": "numero",
                 "type": "CHAR VARYING",
                 "length": 255,
@@ -1139,7 +1059,264 @@
                 "oldName": "numero"
               }
             ],
-            "foreignKeys": [],
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_Telefones_TelefonesClientes_1",
+                "fields": [
+                  "id"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "TelefoneClientes",
+                "referencedFields": [
+                  "telefone_id"
+                ],
+                "sourceCardinality": "ManyRelationship",
+                "targetCardinality": "NoneRelationship",
+                "comment": "",
+                "oldName": ""
+              }
+            ],
+            "indexes": [],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [
+                "id"
+              ],
+              "oldName": ""
+            }
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "TelefoneFuncionarios",
+            "comment": "",
+            "oldName": "",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "id",
+                "type": "INTEGER",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": false,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "telefone_id",
+                "type": "INTEGER",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "telefone_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "funcionario_id",
+                "type": "INTEGER",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "funcionario_id"
+              }
+            ],
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_TelefonesFuncionarios_Telefones_1",
+                "fields": [
+                  "telefone_id"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "Telefones",
+                "referencedFields": [
+                  "id"
+                ],
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "ManyRelationship",
+                "comment": "",
+                "oldName": ""
+              }
+            ],
+            "indexes": [],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [
+                "id"
+              ],
+              "oldName": ""
+            }
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "TelefoneClientes",
+            "comment": "",
+            "oldName": "",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "id",
+                "type": "INTEGER",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": false,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "telefone_id",
+                "type": "INTEGER",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "telefone_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "cliente_id",
+                "type": "INTEGER",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "cliente_id"
+              }
+            ],
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_TelefonesClientes_Clientes_1",
+                "fields": [
+                  "cliente_id"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "Clientes",
+                "referencedFields": [
+                  "id"
+                ],
+                "sourceCardinality": "ManyRelationship",
+                "targetCardinality": "NoneRelationship",
+                "comment": "",
+                "oldName": ""
+              }
+            ],
+            "indexes": [],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [
+                "id"
+              ],
+              "oldName": ""
+            }
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "Clientes",
+            "comment": "",
+            "oldName": "",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "id",
+                "type": "INTEGER",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": false,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "cidade_id",
+                "type": "INTEGER",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "cidade_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "nome",
+                "type": "CHAR VARYING",
+                "length": 255,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "nome"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "telefone",
+                "type": "CHAR VARYING",
+                "length": 255,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "telefone"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "idade",
+                "type": "INTEGER",
+                "length": 255,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "idade"
+              }
+            ],
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_Clientes_Compras_1",
+                "fields": [
+                  "id"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "Compras",
+                "referencedFields": [
+                  "cliente_id"
+                ],
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "ManyRelationship",
+                "comment": "",
+                "oldName": ""
+              }
+            ],
             "indexes": [],
             "uniques": [],
             "primaryKey": {
@@ -1173,8 +1350,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "Produtos",
-          "x": 1270,
-          "y": 840,
+          "x": 1700,
+          "y": 810,
           "width": 200,
           "height": 200,
           "isBold": false,
@@ -1189,8 +1366,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "Farmacias",
-          "x": 360,
-          "y": 560,
+          "x": 790,
+          "y": 440,
           "width": 200,
           "height": 200,
           "isBold": false,
@@ -1205,8 +1382,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "Cidades",
-          "x": 870,
-          "y": 620,
+          "x": 1300,
+          "y": 590,
           "width": 200,
           "height": 200,
           "isBold": false,
@@ -1221,8 +1398,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "Clientes",
-          "x": 20,
-          "y": 840,
+          "x": 450,
+          "y": 810,
           "width": 200,
           "height": 200,
           "isBold": false,
@@ -1237,8 +1414,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "Compras",
-          "x": 340,
-          "y": 840,
+          "x": 770,
+          "y": 810,
           "width": 240,
           "height": 200,
           "isBold": false,
@@ -1253,8 +1430,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "Produtos_comprados",
-          "x": 790,
-          "y": 840,
+          "x": 1220,
+          "y": 810,
           "width": 230,
           "height": 200,
           "isBold": false,
@@ -1269,8 +1446,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "Funcionarios",
-          "x": 60,
-          "y": 560,
+          "x": 480,
+          "y": 250,
           "width": 200,
           "height": 200,
           "isBold": false,
@@ -1285,8 +1462,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "Telefones",
-          "x": 60,
-          "y": 270,
+          "x": 70,
+          "y": 540,
           "width": 200,
           "height": 200,
           "isBold": false,
@@ -1301,8 +1478,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "Entregadores",
-          "x": 50,
-          "y": 1220,
+          "x": 480,
+          "y": 1190,
           "width": 200,
           "height": 200,
           "isBold": false,
@@ -1317,8 +1494,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "Retiradas",
-          "x": 360,
-          "y": 1410,
+          "x": 790,
+          "y": 1380,
           "width": 240,
           "height": 200,
           "isBold": false,
@@ -1333,8 +1510,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "Entregas",
-          "x": 360,
-          "y": 1130,
+          "x": 790,
+          "y": 1100,
           "width": 200,
           "height": 200,
           "isBold": false,
@@ -1348,8 +1525,8 @@
         {
           "type": "note",
           "name": "Note 1",
-          "x": 1020,
-          "y": 870,
+          "x": 1450,
+          "y": 840,
           "width": 220,
           "height": 60,
           "text": "1 produto pode estar presente em várias compras",
@@ -1368,8 +1545,8 @@
         {
           "type": "note",
           "name": "Note 2",
-          "x": 590,
-          "y": 840,
+          "x": 1020,
+          "y": 810,
           "width": 200,
           "height": 90,
           "text": "1 compra deve conter no mínimo 1 produto, ou pode ter vários produtos\r\n",
@@ -1388,16 +1565,16 @@
         {
           "type": "note",
           "name": "Note 3",
-          "x": 580,
-          "y": 1200,
+          "x": 1010,
+          "y": 970,
           "width": 150,
-          "height": 190,
-          "text": "Na tabela Retiradas temos o campo metodo que pode fazer referência a (App, Portal ou Físico/Presencial)",
+          "height": 370,
+          "text": "Talvez o campo plataforma na tabela Compras não seja necessário... na tabela Retiradas temos o campo metodo que pode fazer referência a mesma coisa... (App, Portal ou Físico/Presencial).... retirado",
           "style": "note",
           "noteColor": {
             "r": 255,
-            "g": 255,
-            "b": 132,
+            "g": 157,
+            "b": 157,
             "a": 1
           },
           "fontName": "Arial Unicode MS",
@@ -1409,8 +1586,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "Estoque",
-          "x": 1020,
-          "y": 340,
+          "x": 1450,
+          "y": 310,
           "width": 230,
           "height": 200,
           "isBold": false,
@@ -1424,8 +1601,8 @@
         {
           "type": "note",
           "name": "Note 5",
-          "x": 1250,
-          "y": 270,
+          "x": 1680,
+          "y": 240,
           "width": 190,
           "height": 160,
           "text": "No Estoque o campo \"quantidade\" determina a quantidade específica do produto em uma farmácia vinculado ao lote específico",
@@ -1444,8 +1621,8 @@
         {
           "type": "note",
           "name": "Note 6",
-          "x": 910,
-          "y": 1060,
+          "x": 1340,
+          "y": 1030,
           "width": 230,
           "height": 140,
           "text": "No Produtos_comprados o campo quantidade se refere a \"quantidade\" de unidades do produto que foram compradas em uma transação ",
@@ -1464,8 +1641,8 @@
         {
           "type": "note",
           "name": "Note 7",
-          "x": 1390,
-          "y": 440,
+          "x": 1820,
+          "y": 410,
           "width": 170,
           "height": 330,
           "text": "Tabela EstoqueUnidade é um intermediador para nao termos uma relação muitos para muitos entre Estoque e Unidades...uma unidade pode ter múltiplos produtos em estoque e um produto pode estar em estoque em várias unidades",
@@ -1485,8 +1662,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "Unidades",
-          "x": 630,
-          "y": 470,
+          "x": 1060,
+          "y": 440,
           "width": 200,
           "height": 200,
           "isBold": false,
@@ -1500,8 +1677,8 @@
         {
           "type": "note",
           "name": "Note 8",
-          "x": 590,
-          "y": 670,
+          "x": 1130,
+          "y": 330,
           "width": 250,
           "height": 110,
           "text": "Tabela Unidades é um intermediador para nao termos relação muitos para muitos entre Cidades e Farmacias",
@@ -1520,8 +1697,8 @@
         {
           "type": "note",
           "name": "Note 9",
-          "x": 20,
-          "y": 1420,
+          "x": 450,
+          "y": 1390,
           "width": 280,
           "height": 170,
           "text": "PERGUNTA ! e se o usuario fizer várias compras em diferentes farmácias dentro do App??? Então o entregador vai ter muitas entregas, sendo que muitas entregas podem estar associadas a uma compra ",
@@ -1540,8 +1717,8 @@
         {
           "type": "note",
           "name": "Note 4",
-          "x": 110,
-          "y": 1070,
+          "x": 540,
+          "y": 1040,
           "width": 240,
           "height": 110,
           "text": "Tabela Entregas é um intermediador para nao termos relação muitos para muitos entre Entregadores e Compras ",
@@ -1561,8 +1738,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "EstoqueUnidade",
-          "x": 760,
-          "y": 180,
+          "x": 1190,
+          "y": 90,
           "width": 200,
           "height": 200,
           "isBold": false,
@@ -1572,6 +1749,58 @@
             "b": 192,
             "a": 1
           }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "TelefoneFuncionarios",
+          "x": 70,
+          "y": 250,
+          "width": 200,
+          "height": 200,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "TelefoneClientes",
+          "x": 70,
+          "y": 810,
+          "width": 200,
+          "height": 200,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "note",
+          "name": "Note 10",
+          "x": 300,
+          "y": 470,
+          "width": 150,
+          "height": 280,
+          "text": "Tabela TelefoneFuncionarios e TelefoneClientes é monetária... 1 funcionário/cliente tem muitos números, mas cada número só pertece ao mesmo",
+          "style": "note",
+          "noteColor": {
+            "r": 200,
+            "g": 255,
+            "b": 160,
+            "a": 1
+          },
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "isFontBold": false,
+          "isFontItalic": false
         }
       ],
       "layers": [],
@@ -1584,25 +1813,25 @@
           "visible": true,
           "vertices": [
             {
-              "x": 595,
-              "y": 940
+              "x": 1025,
+              "y": 910
             },
             {
-              "x": 745,
-              "y": 940
+              "x": 1180,
+              "y": 910
             },
             {
-              "x": 745,
-              "y": 940
+              "x": 1180,
+              "y": 910
             },
             {
-              "x": 775,
-              "y": 940
+              "x": 1205,
+              "y": 910
             }
           ],
           "label": {
-            "x": 585,
-            "y": 892,
+            "x": 1015,
+            "y": 862,
             "width": 239,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -1626,25 +1855,25 @@
           "visible": true,
           "vertices": [
             {
-              "x": 460,
-              "y": 775
+              "x": 890,
+              "y": 655
             },
             {
-              "x": 460,
-              "y": 810
+              "x": 890,
+              "y": 780
             },
             {
-              "x": 460,
-              "y": 810
+              "x": 890,
+              "y": 780
             },
             {
-              "x": 460,
-              "y": 825
+              "x": 890,
+              "y": 795
             }
           ],
           "label": {
-            "x": 468,
-            "y": 765,
+            "x": 898,
+            "y": 645,
             "width": 171,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -1668,25 +1897,25 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1255,
-              "y": 940
+              "x": 1685,
+              "y": 910
             },
             {
-              "x": 1120,
-              "y": 940
+              "x": 1550,
+              "y": 910
             },
             {
-              "x": 1120,
-              "y": 940
+              "x": 1550,
+              "y": 910
             },
             {
-              "x": 1035,
-              "y": 940
+              "x": 1465,
+              "y": 910
             }
           ],
           "label": {
-            "x": 1026,
-            "y": 892,
+            "x": 1456,
+            "y": 862,
             "width": 239,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -1710,25 +1939,25 @@
           "visible": true,
           "vertices": [
             {
-              "x": 265,
-              "y": 1320
+              "x": 695,
+              "y": 1290
             },
             {
-              "x": 310,
-              "y": 1320
+              "x": 740,
+              "y": 1290
             },
             {
-              "x": 310,
-              "y": 1230
+              "x": 740,
+              "y": 1200
             },
             {
-              "x": 345,
-              "y": 1230
+              "x": 775,
+              "y": 1200
             }
           ],
           "label": {
-            "x": 255,
-            "y": 1272,
+            "x": 685,
+            "y": 1242,
             "width": 191,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -1752,25 +1981,25 @@
           "visible": true,
           "vertices": [
             {
-              "x": 460,
-              "y": 1395
+              "x": 890,
+              "y": 1365
             },
             {
-              "x": 460,
-              "y": 1360
+              "x": 890,
+              "y": 1330
             },
             {
-              "x": 460,
-              "y": 1360
+              "x": 890,
+              "y": 1330
             },
             {
-              "x": 460,
-              "y": 1345
+              "x": 890,
+              "y": 1315
             }
           ],
           "label": {
-            "x": 468,
-            "y": 1365,
+            "x": 898,
+            "y": 1335,
             "width": 166,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -1794,25 +2023,25 @@
           "visible": true,
           "vertices": [
             {
-              "x": 235,
-              "y": 940
+              "x": 665,
+              "y": 910
             },
             {
-              "x": 295,
-              "y": 940
+              "x": 730,
+              "y": 910
             },
             {
-              "x": 295,
-              "y": 940
+              "x": 730,
+              "y": 910
             },
             {
-              "x": 325,
-              "y": 940
+              "x": 755,
+              "y": 910
             }
           ],
           "label": {
-            "x": 225,
-            "y": 892,
+            "x": 655,
+            "y": 862,
             "width": 156,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -1836,25 +2065,25 @@
           "visible": true,
           "vertices": [
             {
-              "x": 575,
-              "y": 660
+              "x": 1005,
+              "y": 540
             },
             {
-              "x": 605,
-              "y": 660
+              "x": 1040,
+              "y": 540
             },
             {
-              "x": 605,
-              "y": 570
+              "x": 1040,
+              "y": 540
             },
             {
-              "x": 615,
-              "y": 570
+              "x": 1045,
+              "y": 540
             }
           ],
           "label": {
-            "x": 565,
-            "y": 612,
+            "x": 995,
+            "y": 492,
             "width": 174,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -1878,25 +2107,25 @@
           "visible": true,
           "vertices": [
             {
-              "x": 970,
-              "y": 605
+              "x": 1400,
+              "y": 575
             },
             {
-              "x": 970,
-              "y": 560
+              "x": 1400,
+              "y": 530
             },
             {
-              "x": 970,
-              "y": 560
+              "x": 1400,
+              "y": 530
             },
             {
-              "x": 845,
-              "y": 560
+              "x": 1275,
+              "y": 530
             }
           ],
           "label": {
-            "x": 812,
-            "y": 565,
+            "x": 1242,
+            "y": 535,
             "width": 160,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -1920,68 +2149,26 @@
           "visible": true,
           "vertices": [
             {
-              "x": 460,
-              "y": 1055
+              "x": 890,
+              "y": 1025
             },
             {
-              "x": 460,
+              "x": 890,
+              "y": 1060
+            },
+            {
+              "x": 890,
+              "y": 1060
+            },
+            {
+              "x": 890,
               "y": 1085
-            },
-            {
-              "x": 460,
-              "y": 1085
-            },
-            {
-              "x": 460,
-              "y": 1115
             }
           ],
           "label": {
-            "x": 468,
-            "y": 1045,
+            "x": 898,
+            "y": 1015,
             "width": 162,
-            "height": 40,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "fk_Funcionarios_Telefones_1",
-          "sourceTableName": "Funcionarios",
-          "sourceSchemaName": "default",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 160,
-              "y": 545
-            },
-            {
-              "x": 160,
-              "y": 505
-            },
-            {
-              "x": 160,
-              "y": 505
-            },
-            {
-              "x": 160,
-              "y": 485
-            }
-          ],
-          "label": {
-            "x": 168,
-            "y": 515,
-            "width": 193,
             "height": 40,
             "fontName": "Arial Unicode MS",
             "fontSize": 14,
@@ -2004,25 +2191,25 @@
           "visible": true,
           "vertices": [
             {
-              "x": 345,
-              "y": 660
+              "x": 775,
+              "y": 540
             },
             {
-              "x": 310,
-              "y": 660
+              "x": 740,
+              "y": 540
             },
             {
-              "x": 310,
-              "y": 660
+              "x": 740,
+              "y": 350
             },
             {
-              "x": 275,
-              "y": 660
+              "x": 695,
+              "y": 350
             }
           ],
           "label": {
-            "x": 159,
-            "y": 612,
+            "x": 589,
+            "y": 492,
             "width": 196,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -2046,21 +2233,21 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1370,
-              "y": 825
+              "x": 1800,
+              "y": 795
             },
             {
-              "x": 1370,
-              "y": 460
+              "x": 1800,
+              "y": 430
             },
             {
-              "x": 1265,
-              "y": 460
+              "x": 1695,
+              "y": 430
             }
           ],
           "label": {
-            "x": 1215,
-            "y": 785,
+            "x": 1645,
+            "y": 755,
             "width": 157,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -2084,21 +2271,21 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1160,
-              "y": 325
+              "x": 1590,
+              "y": 295
             },
             {
-              "x": 1160,
-              "y": 280
+              "x": 1590,
+              "y": 190
             },
             {
-              "x": 975,
-              "y": 280
+              "x": 1405,
+              "y": 190
             }
           ],
           "label": {
-            "x": 957,
-            "y": 285,
+            "x": 1387,
+            "y": 255,
             "width": 205,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -2122,22 +2309,228 @@
           "visible": true,
           "vertices": [
             {
-              "x": 680,
-              "y": 455
+              "x": 1110,
+              "y": 425
             },
             {
-              "x": 680,
-              "y": 290
+              "x": 1110,
+              "y": 200
             },
             {
-              "x": 745,
-              "y": 290
+              "x": 1175,
+              "y": 200
             }
           ],
           "label": {
-            "x": 682,
-            "y": 415,
+            "x": 1112,
+            "y": 385,
             "width": 213,
+            "height": 40,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_Funcionarios_TelefonesFuncionarios_1",
+          "sourceTableName": "Funcionarios",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 465,
+              "y": 350
+            },
+            {
+              "x": 375,
+              "y": 350
+            },
+            {
+              "x": 375,
+              "y": 350
+            },
+            {
+              "x": 285,
+              "y": 350
+            }
+          ],
+          "label": {
+            "x": 200,
+            "y": 302,
+            "width": 275,
+            "height": 40,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_TelefonesFuncionarios_Telefones_1",
+          "sourceTableName": "TelefoneFuncionarios",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 170,
+              "y": 465
+            },
+            {
+              "x": 170,
+              "y": 495
+            },
+            {
+              "x": 170,
+              "y": 495
+            },
+            {
+              "x": 170,
+              "y": 525
+            }
+          ],
+          "label": {
+            "x": 178,
+            "y": 455,
+            "width": 256,
+            "height": 40,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_Telefones_TelefonesClientes_1",
+          "sourceTableName": "Telefones",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 170,
+              "y": 755
+            },
+            {
+              "x": 170,
+              "y": 785
+            },
+            {
+              "x": 170,
+              "y": 785
+            },
+            {
+              "x": 170,
+              "y": 795
+            }
+          ],
+          "label": {
+            "x": 178,
+            "y": 745,
+            "width": 225,
+            "height": 40,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_TelefonesClientes_Clientes_1",
+          "sourceTableName": "TelefoneClientes",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 285,
+              "y": 910
+            },
+            {
+              "x": 350,
+              "y": 910
+            },
+            {
+              "x": 350,
+              "y": 910
+            },
+            {
+              "x": 435,
+              "y": 910
+            }
+          ],
+          "label": {
+            "x": 275,
+            "y": 862,
+            "width": 213,
+            "height": 40,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_Cidades_Clientes_1",
+          "sourceTableName": "Cidades",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 1285,
+              "y": 690
+            },
+            {
+              "x": 550,
+              "y": 690
+            },
+            {
+              "x": 550,
+              "y": 795
+            }
+          ],
+          "label": {
+            "x": 1144,
+            "y": 642,
+            "width": 151,
             "height": 40,
             "fontName": "Arial Unicode MS",
             "fontSize": 14,
