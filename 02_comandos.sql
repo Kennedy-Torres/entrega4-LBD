@@ -40,7 +40,6 @@ CREATE TABLE EstoqueUnidade (
 CREATE TABLE Clientes(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	nome VARCHAR(100) NULL,
-    telefone VARCHAR(100) NULL,
     idade INT NULL
 );
 CREATE TABLE Funcionarios(
@@ -54,8 +53,10 @@ CREATE TABLE Funcionarios(
 CREATE TABLE Telefones(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     funcionario_id INT NULL,
+    cliente_id INT NULL,
     numero VARCHAR(100) NULL,
-    FOREIGN KEY (funcionario_id) REFERENCES Funcionarios(id)
+    FOREIGN KEY (funcionario_id) REFERENCES Funcionarios(id),
+    FOREIGN KEY (cliente_id) REFERENCES Clientes(id)
 );
 CREATE TABLE Compras(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -149,14 +150,13 @@ INSERT INTO EstoqueUnidade(estoque_id, unidade_id) VALUES /*AS 5 FARMÁCIAS POSS
 (70,10),(71,11),(72,12), /*quantidade do produto 5 na farmácia 4*/
 (73,13),(74,14),(75,15);  /*quantidade do produto 5 na farmácia 5*/
 
-INSERT INTO Clientes(nome, telefone, idade) VALUES /*5*/
-('João', '(61) 99999-9999', 57),
-('Maria', '(62) 88888-8888', 35),
-('Carlos', '(63) 77777-7777', 45),
-('Ana', '(64) 66666-6666', 28),
-('Pedro', '(65) 55555-5555', 50);
+INSERT INTO Clientes(nome, idade) VALUES /*5*/
+('João',57),
+('Maria',35),
+('Carlos',45),
+('Ana',28),
+('Pedro',50);
 
--- Inserts para tabela Compras
 INSERT INTO Compras(farmacia_id, cliente_id, valor_total) VALUES
 (1, 1, 150.5), -- Compra 1 (DF)
 (1, 1, 75.25),  -- Compra 2 (DF)
@@ -169,7 +169,6 @@ INSERT INTO Compras(farmacia_id, cliente_id, valor_total) VALUES
 (4, 4, 100.0),  -- Compra 9 (CE)
 (4, 4, 25.0);   -- Compra 10 (CE)
 
--- Inserts para tabela Produtos_comprados
 INSERT INTO Produtos_comprados(compra_id, produto_id, quantidade, data_hora_compra, preco_unico) VALUES
 (1, 1, 10, '2023-01-15 10:30:00', 25.0),
 (1, 2, 2, '2023-01-15 10:30:00', 15.5),
