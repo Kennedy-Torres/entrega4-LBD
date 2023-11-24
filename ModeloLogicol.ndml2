@@ -160,6 +160,22 @@
                 "targetCardinality": "ManyRelationship",
                 "comment": "",
                 "oldName": ""
+              },
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_Clientes_Telefones_1",
+                "fields": [
+                  "id"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "Telefones",
+                "referencedFields": [
+                  "cliente_id"
+                ],
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "ManyRelationship",
+                "comment": "",
+                "oldName": ""
               }
             ],
             "indexes": [],
@@ -1128,6 +1144,18 @@
               },
               {
                 "objectType": "TableField_LOGICAL",
+                "name": "cliente_id",
+                "type": "INTEGER",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "cliente_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
                 "name": "numero",
                 "type": "CHAR VARYING",
                 "length": 255,
@@ -1269,8 +1297,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "Funcionarios",
-          "x": 60,
-          "y": 560,
+          "x": 50,
+          "y": 280,
           "width": 200,
           "height": 200,
           "isBold": false,
@@ -1285,8 +1313,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "Telefones",
-          "x": 60,
-          "y": 270,
+          "x": 20,
+          "y": 570,
           "width": 200,
           "height": 200,
           "isBold": false,
@@ -1962,25 +1990,25 @@
           "visible": true,
           "vertices": [
             {
-              "x": 160,
-              "y": 545
+              "x": 130,
+              "y": 495
             },
             {
-              "x": 160,
-              "y": 505
+              "x": 130,
+              "y": 550
             },
             {
-              "x": 160,
-              "y": 505
+              "x": 130,
+              "y": 560
             },
             {
-              "x": 160,
-              "y": 485
+              "x": 130,
+              "y": 555
             }
           ],
           "label": {
-            "x": 168,
-            "y": 515,
+            "x": 138,
+            "y": 445,
             "width": 193,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -2013,11 +2041,11 @@
             },
             {
               "x": 310,
-              "y": 660
+              "y": 380
             },
             {
-              "x": 275,
-              "y": 660
+              "x": 265,
+              "y": 380
             }
           ],
           "label": {
@@ -2138,6 +2166,48 @@
             "x": 682,
             "y": 415,
             "width": 213,
+            "height": 40,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_Clientes_Telefones_1",
+          "sourceTableName": "Clientes",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 120,
+              "y": 825
+            },
+            {
+              "x": 120,
+              "y": 805
+            },
+            {
+              "x": 120,
+              "y": 805
+            },
+            {
+              "x": 120,
+              "y": 785
+            }
+          ],
+          "label": {
+            "x": 128,
+            "y": 795,
+            "width": 162,
             "height": 40,
             "fontName": "Arial Unicode MS",
             "fontSize": 14,
