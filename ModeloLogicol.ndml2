@@ -76,88 +76,20 @@
                 "targetCardinality": "ManyRelationship",
                 "comment": "",
                 "oldName": ""
-              }
-            ],
-            "indexes": [],
-            "uniques": [],
-            "primaryKey": {
-              "objectType": "PrimaryKey_LOGICAL",
-              "name": "",
-              "fields": [
-                "id"
-              ],
-              "oldName": ""
-            }
-          },
-          {
-            "objectType": "Table_LOGICAL",
-            "name": "Clientes",
-            "comment": "",
-            "oldName": "",
-            "fields": [
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "id",
-                "type": "INTEGER",
-                "length": 0,
-                "decimals": 0,
-                "isNullable": false,
-                "defaultType": "None",
-                "defaultValue": "",
-                "comment": "",
-                "oldName": "id"
               },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "nome",
-                "type": "CHAR VARYING",
-                "length": 255,
-                "decimals": 0,
-                "isNullable": true,
-                "defaultType": "None",
-                "defaultValue": "",
-                "comment": "",
-                "oldName": "nome"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "telefone",
-                "type": "CHAR VARYING",
-                "length": 255,
-                "decimals": 0,
-                "isNullable": true,
-                "defaultType": "None",
-                "defaultValue": "",
-                "comment": "",
-                "oldName": "telefone"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "idade",
-                "type": "INTEGER",
-                "length": 255,
-                "decimals": 0,
-                "isNullable": true,
-                "defaultType": "None",
-                "defaultValue": "",
-                "comment": "",
-                "oldName": "idade"
-              }
-            ],
-            "foreignKeys": [
               {
                 "objectType": "ForeignKey_LOGICAL",
-                "name": "fk_Clientes_Compras_1",
+                "name": "fk_Cidades_Clientes_1",
                 "fields": [
                   "id"
                 ],
                 "referencedSchema": "default",
-                "referencedTable": "Compras",
+                "referencedTable": "Clientes",
                 "referencedFields": [
-                  "cliente_id"
+                  "cidade_id"
                 ],
                 "sourceCardinality": "NoneRelationship",
-                "targetCardinality": "ManyRelationship",
+                "targetCardinality": "NoneRelationship",
                 "comment": "",
                 "oldName": ""
               }
@@ -1299,6 +1231,102 @@
               ],
               "oldName": ""
             }
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "Clientes",
+            "comment": "",
+            "oldName": "",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "id",
+                "type": "INTEGER",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": false,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "cidade_id",
+                "type": "INTEGER",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "cidade_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "nome",
+                "type": "CHAR VARYING",
+                "length": 255,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "nome"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "telefone",
+                "type": "CHAR VARYING",
+                "length": 255,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "telefone"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "idade",
+                "type": "INTEGER",
+                "length": 255,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "idade"
+              }
+            ],
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_Clientes_Compras_1",
+                "fields": [
+                  "id"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "Compras",
+                "referencedFields": [
+                  "cliente_id"
+                ],
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "ManyRelationship",
+                "comment": "",
+                "oldName": ""
+              }
+            ],
+            "indexes": [],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [
+                "id"
+              ],
+              "oldName": ""
+            }
           }
         ]
       }
@@ -1339,7 +1367,7 @@
           "schemaName": "default",
           "tableName": "Farmacias",
           "x": 790,
-          "y": 530,
+          "y": 440,
           "width": 200,
           "height": 200,
           "isBold": false,
@@ -1649,8 +1677,8 @@
         {
           "type": "note",
           "name": "Note 8",
-          "x": 1020,
-          "y": 640,
+          "x": 1130,
+          "y": 330,
           "width": 250,
           "height": 110,
           "text": "Tabela Unidades é um intermediador para nao termos relação muitos para muitos entre Cidades e Farmacias",
@@ -1711,7 +1739,7 @@
           "schemaName": "default",
           "tableName": "EstoqueUnidade",
           "x": 1190,
-          "y": 150,
+          "y": 90,
           "width": 200,
           "height": 200,
           "isBold": false,
@@ -1761,7 +1789,7 @@
           "y": 470,
           "width": 150,
           "height": 280,
-          "text": "Tabela TelefoneFuncionarios e TelefoneClientes é monetária... 1 funcionário/cliente tem muitos números, mas cada número só pertece ao mesmo.",
+          "text": "Tabela TelefoneFuncionarios e TelefoneClientes é monetária... 1 funcionário/cliente tem muitos números, mas cada número só pertece ao mesmo",
           "style": "note",
           "noteColor": {
             "r": 200,
@@ -1828,7 +1856,7 @@
           "vertices": [
             {
               "x": 890,
-              "y": 745
+              "y": 655
             },
             {
               "x": 890,
@@ -1845,7 +1873,7 @@
           ],
           "label": {
             "x": 898,
-            "y": 735,
+            "y": 645,
             "width": 171,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -2038,11 +2066,11 @@
           "vertices": [
             {
               "x": 1005,
-              "y": 630
+              "y": 540
             },
             {
               "x": 1040,
-              "y": 630
+              "y": 540
             },
             {
               "x": 1040,
@@ -2055,7 +2083,7 @@
           ],
           "label": {
             "x": 995,
-            "y": 582,
+            "y": 492,
             "width": 174,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -2164,11 +2192,11 @@
           "vertices": [
             {
               "x": 775,
-              "y": 630
+              "y": 540
             },
             {
               "x": 740,
-              "y": 630
+              "y": 540
             },
             {
               "x": 740,
@@ -2181,7 +2209,7 @@
           ],
           "label": {
             "x": 589,
-            "y": 582,
+            "y": 492,
             "width": 196,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -2248,11 +2276,11 @@
             },
             {
               "x": 1590,
-              "y": 250
+              "y": 190
             },
             {
               "x": 1405,
-              "y": 250
+              "y": 190
             }
           ],
           "label": {
@@ -2286,11 +2314,11 @@
             },
             {
               "x": 1110,
-              "y": 260
+              "y": 200
             },
             {
               "x": 1175,
-              "y": 260
+              "y": 200
             }
           ],
           "label": {
@@ -2465,6 +2493,44 @@
             "x": 275,
             "y": 862,
             "width": 213,
+            "height": 40,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_Cidades_Clientes_1",
+          "sourceTableName": "Cidades",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 1285,
+              "y": 690
+            },
+            {
+              "x": 550,
+              "y": 690
+            },
+            {
+              "x": 550,
+              "y": 795
+            }
+          ],
+          "label": {
+            "x": 1144,
+            "y": 642,
+            "width": 151,
             "height": 40,
             "fontName": "Arial Unicode MS",
             "fontSize": 14,
