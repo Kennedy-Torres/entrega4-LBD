@@ -75,6 +75,7 @@ CREATE TABLE Compras(
 	farmacia_id INT NULL,
     cliente_id INT NULL,
     valor_total DOUBLE NULL,
+	plataforma VARCHAR(20) NOT NULL,
     FOREIGN KEY (farmacia_id) REFERENCES Farmacias(id),
     FOREIGN KEY (cliente_id) REFERENCES Clientes(id)
 );
