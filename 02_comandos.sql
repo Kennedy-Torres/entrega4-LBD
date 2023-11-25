@@ -74,7 +74,9 @@ CREATE TABLE Compras(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	farmacia_id INT NULL,
     cliente_id INT NULL,
-    valor_total DOUBLE NULL,
+    valor_total DECIMAL(10,2) NULL,
+    data_hora TIMESTAMP,
+    desconto_compra DECIMAL(10,2) NULL, -- usado no desenvolvimento da trigger
     FOREIGN KEY (farmacia_id) REFERENCES Farmacias(id),
     FOREIGN KEY (cliente_id) REFERENCES Clientes(id)
 );
@@ -84,25 +86,28 @@ CREATE TABLE Produtos_comprados(
     produto_id INT NULL,
     quantidade INT NULL,
     data_hora_compra TIMESTAMP NULL, 
-    preco_unico INT NULL
+    preco_unico DECIMAL(10,2) NULL,
+    desconto_preco_unico DECIMAL(10,2) NULL
 );
 CREATE TABLE Entregadores(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	nome VARCHAR(100) NULL
 );
-CREATE TABLE Retiradas(
+/*CREATE TABLE Retiradas(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	metodo VARCHAR(100) NULL,
     data_hora_retirada TIMESTAMP NULL
-);
+);*/
 CREATE TABLE Entregas(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	entregador_id INT NULL,
     compra_id INT NULL,
-    retirada_id INT NULL,
+    metodo_retirada VARCHAR(100) NULL,
+    /*data_hora TIMESTAMP,*/
+    /*retirada_id INT NULL,*/
     FOREIGN KEY (entregador_id) REFERENCES Entregadores(id),
-    FOREIGN KEY (compra_id) REFERENCES Compras(id),
-    FOREIGN KEY (retirada_id) REFERENCES Retiradas(id)
+    FOREIGN KEY (compra_id) REFERENCES Compras(id)
+    /*FOREIGN KEY (retirada_id) REFERENCES Retiradas(id)*/
 );
 
 --- COMANDOS PARA POPULAÇÃO DAS TABELAS ---
@@ -169,68 +174,43 @@ INSERT INTO Clientes(cidade_id,nome, idade) VALUES /*total registrado: 5*/
 (3,'Ana',28),
 (4,'Pedro',50);
 
-INSERT INTO Compras(farmacia_id, cliente_id, valor_total) VALUES /*Total registrado: 10*/
-(1, 1, 150.5), -- Compra 1 (DF)
-(1, 1, 75.25),  -- Compra 2 (DF)
-(3, 3, 200.0),  -- Compra 3 (CE)
-(4, 4, 120.75), -- Compra 4 (CE)
-(5, 5, 180.3),  -- Compra 5 (DF)
-(1, 1, 75.0),   -- Compra 6 (DF)
-(2, 2, 150.0),  -- Compra 7 (DF)
-(4, 4, 50.0),   -- Compra 8 (CE)
-(4, 4, 100.0),  -- Compra 9 (CE)
-(4, 4, 25.0),   -- Compra 10 (CE)
+INSERT INTO Compras(farmacia_id, cliente_id, valor_total, data_hora) VALUES /*Total registrado: 10*/
+(1, 1, 150.52, '2023-11-24 10:15:00'), -- Compra 1 (DF)
+(1, 1, 75.25, '2023-11-24 12:30:00'),  -- Compra 2 (DF)
+(3, 3, 200.00, '2023-11-25 14:45:00'),  -- Compra 3 (CE)
+(4, 4, 120.75, '2023-11-26 16:00:00'), -- Compra 4 (CE)
+(5, 5, 180.30, '2023-11-27 18:15:00'),  -- Compra 5 (DF)
+(1, 2, 75.00, '2023-11-28 09:30:00'),   -- Compra 6 (DF)
+(2, 2, 150.00, '2023-11-29 11:45:00'),  -- Compra 7 (DF)
+(4, 4, 50.00, '2023-11-30 13:00:00'),   -- Compra 8 (CE)
+(4, 4, 100.00, '2023-12-01 15:15:00'),  -- Compra 9 (CE)
+(4, 4, 25.00, '2023-12-02 17:30:00'),   -- Compra 10 (CE)
+(1, 1, 120.00, '2023-11-14 08:27:43'),
+(1, 2, 80.00, '2023-11-15 10:30:00'),
+(2, 3, 150.00, '2023-11-14 14:45:00'),
+(2, 4, 100.00, '2023-11-15 16:00:00'),
+(3, 5, 90.00, '2023-11-15 18:15:00'),
+    (3, 3, 180.00, '2023-05-30 17:10:00'),
+    (2, 2, 45.00, '2023-08-20 11:00:00'),
+    (5, 5, 60.00, '2023-07-05 09:45:00'),
+    (1, 1, 100.00, '2023-09-15 16:15:00'),
+    (4, 4, 80.00, '2023-09-15 16:15:00'),
+    (5, 5, 45.00, '2023-10-25 13:30:00'),
+    (1, 1, 150.00, '2023-10-25 13:30:00'),
+    (3, 3, 95.00, '2023-10-25 14:30:00'),
+    (2, 2, 110.00, '2023-10-25 15:30:00');
 
-(2, 2, 50.0),
-    (3, 3, 75.0),
-    (5, 5, 90.0),
-    (2, 2, 120.0),
-    (1, 1, 30.0),
-    (3, 3, 180.0),
-    (2, 2, 45.0),
-    (5, 5, 60.0),
-    (1, 1, 100.0),
-    (4, 4, 80.0),
-    (5, 5, 45.0),
-    (1, 1, 150.0),
-    (3, 3, 95.0),
-    (2, 2, 110.0),
-    (4, 4, 70.0),
-    (5, 5, 120.0),
-    (3, 3, 85.0),
-    (4, 4, 55.0),
-    (5, 5, 95.0),
-    (1, 1, 65.0),
-    (2, 2, 75.0),
-    (4, 4, 90.0),
-    (5, 5, 110.0),
-    (1, 1, 80.0),
-    (3, 3, 120.0),
-    (2, 2, 100.0),
-    (4, 4, 105.0),
-    (5, 5, 75.0),
-    (1, 1, 95.0);
-
-INSERT INTO Produtos_comprados(compra_id, produto_id, quantidade, data_hora_compra, preco_unico) VALUES
-(1, 1, 10, '2023-01-15 10:30:00', 25.0),(1, 2, 2, '2023-01-15 10:30:00', 15.5),(1, 3, 1, '2023-01-15 10:30:00', 30.0),
-(2, 1, 5, '2023-02-05 15:45:00', 10.0),(2, 4, 3, '2023-02-05 15:45:00', 20.25),
-(3, 2, 2, '2023-03-10 08:20:00', 15.0),(3, 3, 4, '2023-03-10 08:20:00', 40.0),(3, 5, 1, '2023-03-10 08:20:00', 30.0),
-(4, 1, 3, '2023-04-20 12:15:00', 10.5),(4, 2, 2, '2023-04-20 12:15:00', 17.25),(4, 3, 5, '2023-04-20 12:15:00', 25.0),
-(5, 5, 2, '2023-05-30 17:10:00', 20.0),(5, 1, 3, '2023-05-30 17:10:00', 15.3),(5, 4, 1, '2023-05-30 17:10:00', 30.0),
-(6, 1, 2, '2023-06-12 14:30:00', 20.0),(6, 3, 1, '2023-06-12 14:30:00', 30.0),
-(7, 2, 3, '2023-07-05 09:45:00', 15.0),(7, 4, 2, '2023-07-05 09:45:00', 20.25),
-(8, 1, 1, '2023-08-20 11:00:00', 10.5),(8, 5, 2, '2023-08-20 11:00:00', 15.0),
-(9, 3, 3, '2023-09-15 16:15:00', 30.0),(9, 4, 1, '2023-09-15 16:15:00', 15.0),
-(10, 2, 2, '2023-10-25 13:30:00', 15.5),(10, 5, 1, '2023-10-25 13:30:00', 12.0),
-
- (11, 1, 2, '2023-11-10 08:45:00', 25.0),(11, 3, 3, '2023-11-10 08:45:00', 30.0),
-(12, 2, 1, '2023-12-15 14:20:00', 15.0),(12, 4, 4, '2023-12-15 14:20:00', 20.25),
-(13, 5, 2, '2024-01-20 09:30:00', 20.0),(13, 1, 3, '2024-01-20 09:30:00', 15.3),(13, 3, 1, '2024-01-20 09:30:00', 30.0),
-(14, 1, 2, '2024-02-28 15:15:00', 20.0),(14, 2, 1, '2024-02-28 15:15:00', 17.25),
-(15, 3, 3, '2024-03-10 11:45:00', 30.0),(15, 4, 2, '2024-03-10 11:45:00', 20.25),
-(16, 1, 1, '2024-04-18 13:20:00', 10.5),(16, 2, 2, '2024-04-18 13:20:00', 15.0),(16, 5, 1, '2024-04-18 13:20:00', 30.0),
-(17, 4, 2, '2024-05-25 10:30:00', 25.0),(17, 1, 1, '2024-05-25 10:30:00', 15.5),
-(18, 3, 3, '2024-06-08 08:15:00', 30.0),(18, 5, 1, '2024-06-08 08:15:00', 12.0);
+INSERT INTO Produtos_comprados(compra_id, produto_id, quantidade, preco_unico) VALUES
+(1, 1, 10, 25.00),(1, 2, 2, 15.50),(1, 3, 1, 30.00),
+(2, 1, 5, 25.00),(2, 4, 3, 20.25),
+(3, 2, 2, 15.00),(3, 3, 4, 40.00),(3, 5, 1, 30.00),
+(4, 1, 3, 25.00),(4, 2, 2, 17.25),(4, 3, 5, 30.00),
+(5, 5, 2, 20.00),(5, 1, 3, 25.00),(5, 4, 1, 30.00),
+(6, 1, 2, 25.00),(6, 3, 1, 30.00),
+(7, 2, 3, 15.00),(7, 4, 2, 20.25),
+(8, 1, 1, 25.00),(8, 5, 2, 15.00),
+(9, 3, 3, 30.00),(9, 4, 1, 15.00),
+(10, 2, 2, 15.00),(10, 5, 1, 12.00);
 
 INSERT INTO Funcionarios(farmacia_id, nome, email, cargo) VALUES /*total registrado: 20 Funcionarios*/
 (1, 'Marcio Oliveira', 'marcio.oliveira@gmail.com', 'Gerente'),
@@ -297,7 +277,8 @@ INSERT INTO Entregadores (nome) VALUES /*total registrado: 10*/
 ('Sérgio Oliveira'),('Ana Silva'),('Carlos Santos'),('Juliana Pereira'),('Roberto Souza'),
 ('Camila Lima'),('Lucas Ferreira'),('Fernanda Oliveira'),('Paulo Santos'),('Aline Costa');
 
-INSERT INTO Retiradas (metodo, data_hora_retirada) VALUES /*total registrado: 39*/
+/*
+INSERT INTO Retiradas (metodo, data_hora_retirada) VALUES 
 ('App', '2023-11-24 10:15:00'),('Portal', '2023-11-24 12:30:00'),
 ('Presencial', '2023-11-25 14:45:00'),('App', '2023-11-26 16:00:00'),
 ('Presencial', '2023-11-27 18:15:00'),('Portal', '2023-11-28 09:30:00'),
@@ -318,10 +299,16 @@ INSERT INTO Retiradas (metodo, data_hora_retirada) VALUES /*total registrado: 39
 ('App', '2023-12-27 19:45:00'),('Portal', '2023-12-28 08:00:00'),
 ('App', '2023-12-29 10:15:00'),('Presencial', '2023-12-30 12:30:00'),
 ('App', '2023-12-31 14:45:00');
+*/
 
 -- População da tabela Entregas correspondente, incluindo retirada_id
-INSERT INTO Entregas(entregador_id, compra_id, retirada_id) VALUES /*Total registrado: 10 retiradas... em um total de 39*/
-(1, 11, 1),(2, 12, 2),(3, 13, 3),(4, 14, 4),(5, 15, 5),(6, 16, 6),(7, 17, 7),(8, 18, 8),(9, 19, 9),(10, 20, 10);
+INSERT INTO Entregas(entregador_id, compra_id, metodo_retirada) VALUES /*Total registrado: 10 retiradas... em um total de 39*/
+(1, 1,'App'),(2, 2,'Portal'),(3, 3,'loja'),
+(4, 4, 'App'),(5, 5,'loja'),(6, 6,'Portal'),
+(7, 7,'App'),(8, 8,'loja'),(9, 9,'App'),(10, 10,'Portal'),
+(1, 11, 'loja'), (2, 12, 'App'), (3, 13, 'loja'),
+(4, 14, 'Portal'), (5, 15, 'App'), (6, 16, 'Portal'),
+(7, 17, 'loja'), (8, 18, 'Portal'), (9, 19, 'loja'), (10, 20, 'App');
 
 
 --- COMANDOS PARA A CONSULTA 1 ---
@@ -349,27 +336,6 @@ GROUP BY
 ORDER BY
     p.nome;
     
-/*APENAS VALIDACAO.... DESCARTAR NO FINAL*/
-SELECT
-    f.nome AS farmacia,
-    p.nome AS produto,
-    u.nome AS unidade,
-    e.quantidade
-FROM
-    Produtos p
-JOIN
-    Estoque e ON p.id = e.produto_id
-JOIN
-    EstoqueUnidade eu ON e.id = eu.estoque_id
-JOIN
-    Unidades u ON eu.unidade_id = u.id
-JOIN
-    Farmacias f ON u.farmacia_id = f.id
-JOIN
-    Cidades c ON u.cidade_id = c.id
-WHERE
-    c.id = 1 AND p.codigo_de_barra = 71001; /*VALIDANDO A QUANTIDADE DOS PRODUTOS*/
-
 
 --- COMANDOS PARA A CONSULTA 2 ---
 
@@ -417,11 +383,27 @@ BEGIN
         );
 END //
 DELIMITER ;
-CALL BuscarClientesPorUF('DF'); -- Substitua pelo estado desejado 'DF', 'CE' ou 'MG'
-
+CALL BuscarClientesPorUF('MG'); -- Substitua pelo estado desejado 'DF', 'CE' ou 'MG' esta consulta vai ser altera devido mudanças na tabela telefone
 
 
 --- COMANDOS PARA A CONSULTA 3 ---
+SELECT
+    c.id AS id_compra,
+    cli.nome AS cliente,
+    c.valor_total,
+    e.metodo_retirada AS plataforma,
+    c.data_hora
+FROM
+    Compras c
+JOIN Clientes cli ON c.cliente_id = cli.id
+LEFT JOIN Entregas e ON c.id = e.compra_id
+WHERE
+    (e.metodo_retirada IS NULL OR e.metodo_retirada NOT IN ('App')) -- Exclui entregas pelo aplicativo
+    AND c.data_hora BETWEEN '2023-11-14 00:00:00' AND '2023-11-15 23:59:59'
+ORDER BY
+    c.data_hora;
+
+
 
 
 --- COMANDOS PARA A CONSULTA 4 ---
@@ -446,3 +428,71 @@ CALL BuscarClientesPorUF('DF'); -- Substitua pelo estado desejado 'DF', 'CE' ou 
 -- Exemplo de uso 
 
 --- COMANDOS PARA CRIAÇÃO E EXEMPLO DE USO DA "TRIGGER" ---
+
+/*
+CREATE TRIGGER tr_descontoCompra BEFORE INSERT 
+ON Compras 
+FOR EACH ROW
+SET NEW.desconto_compra = (NEW.valor_total * 0.90); -- desconto de 10% na compra total
+*/
+DELIMITER //
+CREATE TRIGGER tr_descontoProduto1Farmaciaa1 
+BEFORE INSERT ON produtos_comprados
+FOR EACH ROW
+BEGIN
+    DECLARE desconto DECIMAL(10, 2);
+
+    -- Verifica se o produto_id é 1 e se a compra pertence à farmacia_id 1
+    IF (SELECT farmacia_id FROM Compras WHERE id = NEW.compra_id) = 1 AND NEW.produto_id = 1 THEN
+        -- Calcula o desconto de 15%
+        SET desconto = NEW.preco_unico * 0.15;
+        -- Aplica o desconto ao preco_unico
+        SET NEW.preco_unico = NEW.preco_unico - desconto;
+    END IF;
+END;
+//
+DELIMITER ;
+
+select*from produtos_comprados;
+
+
+DELIMITER //
+CREATE TRIGGER tr_desconto_produto
+BEFORE INSERT ON produtos_comprados
+FOR EACH ROW
+BEGIN
+    DECLARE qtd_produto_comprado INT;
+
+    -- Verificar a quantidade total de produtos comprados com produto_id = 1 na farmacia_id = 1
+    SELECT SUM(quantidade) INTO qtd_produto_comprado
+    FROM produtos_comprados pc
+    JOIN compras c ON pc.compra_id = c.id
+    WHERE pc.produto_id = 1 AND c.farmacia_id = 1;
+
+    -- Aplicar desconto de 15% nos próximos 30 produtos comprados com produto_id = 1 na farmacia_id = 1
+    IF qtd_produto_comprado <= 30 THEN
+        SET NEW.desconto_preco_unico = NEW.preco_unico * 0.85; -- Aplicar desconto de 15%
+    END IF;
+END;
+//
+DELIMITER ;
+-- Inserir uma compra na farmacia_id = 1
+INSERT INTO compras (farmacia_id, cliente_id, valor_total) VALUES (1, 1, 100.0);
+
+-- Inserir produtos_comprados com produto_id = 1 na compra recém-criada
+-- Certifique-se de inserir 30 produtos para testar o desconto
+INSERT INTO produtos_comprados (compra_id, produto_id, quantidade, data_hora_compra, preco_unico)
+VALUES
+    (41, 1, 5, '2023-11-24 10:00:00', 20.0),
+    (42, 1, 5, '2023-11-24 10:05:00', 20.0);
+    -- Adicione mais linhas conforme necessário para atingir um total de 30 produtos
+    
+-- Consultar os registros inseridos
+SELECT * FROM produtos_comprados WHERE compra_id = 1;
+
+SELECT produto_id, preco_unico, desconto_preco_unico
+FROM produtos_comprados
+WHERE produto_id = 1;
+
+
+
