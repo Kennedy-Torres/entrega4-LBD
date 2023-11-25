@@ -432,8 +432,29 @@ CALL BuscarClientesPorUF('DF'); -- Substitua pelo estado desejado 'DF', 'CE' ou 
 --- COMANDOS PARA A CONSULTA 6 ---
 
 --- COMANDOS PARA A CONSULTA 7 ---
-
+SELECT p.nome as produto, p.fabricante as fabricante, f.nome AS farmacia, cid.nome as cidade, cid.uf as uf, SUM(pc.quantidade) as qtd_vendas
+FROM Farmacias AS f 
+	JOIN Compras AS c ON f.id = c.farmacia_id 
+	JOIN Produtos_comprados AS pc ON c.id = pc.compra_id
+	JOIN Produtos AS P ON p.id = pc.produto_id
+    JOIN Estoque as e ON p.id = e.produto_id
+    JOIN EstoqueUnidade as eu ON e.id = eu.estoque_id
+    JOIN Unidades AS u ON u.id = eu.unidade_id
+    JOIN Cidades AS cid ON cid.id = u.cidade_id
+WHERE p.id = 1 AND pc.data_hora_compra > SUBDATE(CURDATE(), INTERVAL 30 DAY) AND c.plataforma = ""
+GROUP BY f.id, cid.nome, cid.uf
+LIMIT 10;
 --- COMANDOS PARA A CONSULTA 8 ---
+SELECT f.nome as farmacia, func.nome as gerente, t.numero as telefone, func.email, COUNT(f.nome) as counter
+FROM Farmacias AS f 
+	JOIN Compras AS c ON f.id = c.farmacia_id 
+	JOIN Produtos_comprados AS pc ON c.id = pc.compra_id
+	JOIN Produtos AS p ON p.id = pc.produto_id
+    JOIN Funcionarios as func ON  func.farmacia_id = f.id
+    JOIN TelefoneFuncionarios as tf ON tf.funcionario_id = f.id
+    JOIN Telefones AS t on t.id = tf.telefone_id
+WHERE p.id = 3 AND pc.data_hora_compra > SUBDATE(CURDATE(), INTERVAL 30 DAY) AND c.plataforma = "" 
+GROUP BY f.id, func.nome, t.numero, func.email;
 
 --- COMANDOS PARA A CONSULTA 9 ---
 
