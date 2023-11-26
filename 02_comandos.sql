@@ -479,7 +479,7 @@ END;
 -- Explicação "TRIGGER":
 /* A trigger atualizar_Produtos_comprado é acionada automaticamente após a inserção de um novo pedido na tabela pedidos. Quando acionada, ela atualiza 
 o valor total de vendas na tabela Produtos_comprado adicionando o valor do pedido recém-inserido. Essa é uma maneira de manter automaticamente atualizados os totais 
-de vendas sempre que novos pedidos são adicionados ao sistema.
+de vendas sempre que novos pedidos são adicionados ao sistema.*/
 
 
 
