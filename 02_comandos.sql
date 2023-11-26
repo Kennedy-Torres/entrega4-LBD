@@ -1,4 +1,6 @@
 --- COMANDOS PARA CRIAÇÃO DAS TABELAS E SEUS RELACIONAMENTOS ---
+
+
 CREATE TABLE Produtos(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NULL,
@@ -46,6 +48,7 @@ CREATE TABLE Clientes(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     cidade_id INT NOT NULL,
 	nome VARCHAR(100) NULL,
+    telefone VARCHAR(20),
     idade INT NULL,
     FOREIGN KEY (cidade_id) REFERENCES Cidades(id)
 );
@@ -59,18 +62,7 @@ CREATE TABLE Funcionarios(
     cargo VARCHAR(100) NULL,
     FOREIGN KEY (farmacia_id) REFERENCES Farmacias(id)
 );
-CREATE TABLE Telefones(
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    numero VARCHAR(100) NOT NULL
-);
 
-CREATE TABLE TelefoneClientes(
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    telefone_id INT NOT NULL,
-    cliente_id INT NOT NULL,
-    FOREIGN KEY (telefone_id) REFERENCES Telefones(id),
-    FOREIGN KEY (cliente_id) REFERENCES Clientes(id)
-);
 CREATE TABLE Compras(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	farmacia_id INT NULL,
@@ -164,35 +156,39 @@ INSERT INTO EstoqueUnidade(estoque_id, unidade_id) VALUES /*AS 5 FARMÁCIAS POSS
 (70,10),(71,11),(72,12), /*quantidade do produto 5 na farmácia 4*/
 (73,13),(74,14),(75,15);  /*quantidade do produto 5 na farmácia 5*/
 
-INSERT INTO Clientes(cidade_id,nome, idade) VALUES /*total registrado: 5*/
-(1,'João',57),
-(2,'Maria',35),
-(2,'Carlos',45),
-(3,'Ana',28),
-(4,'Pedro',50);
+INSERT INTO Clientes(cidade_id,nome, telefone, idade) VALUES /*total registrado: 5*/
+(1,'João','(61) 97543-4449', 57),
+(2,'Maria','(61) 99877-6612', 35),
+(2,'Carlos','(61) 9877-4449', 45),
+(3,'Ana', '(61) 99781-2233', 28),
+(4,'Pedro', '(61) 98785-3256', 50),
+('2', 'Marcos', '(61) 9877-4449', '32'),
+('2', 'Lucas', '(61) 9845-4540', '23'),
+('1', 'Letícia', '(61) 98565-5461', '44'),
+('3', 'João', '(61) 8898-7815', '32');
 
 INSERT INTO Compras(farmacia_id, cliente_id, plataforma) VALUES /*Total registrado: 10*/
-	(1, 1, "WEB"), -- Compra 1 (DF)
-	(1, 1, "WEB"),  -- Compra 2 (DF)
-	(3, 3, "APP"),  -- Compra 3 (CE)
-	(4, 4, "WEB"), -- Compra 4 (CE)
+	(2, 1, "WEB"), -- Compra 1 (DF)
+	(1, 3, "WEB"),  -- Compra 2 (DF)
+	(4, 3, "APP"),  -- Compra 3 (CE)
+	(4, 5, "WEB"), -- Compra 4 (CE)
 	(5, 5, "APP"),  -- Compra 5 (DF)
 	(1, 1, "APP"),   -- Compra 6 (DF)
 	(2, 2, "APP"),  -- Compra 7 (DF)
-	(4, 4, "WEB"),   -- Compra 8 (CE)
-	(4, 4, "WEB"),  -- Compra 9 (CE)
-	(4, 4, "WEB"),   -- Compra 10 (CE)
-	(2, 2, "WEB"),
-	(3, 3, "APP"),
-	(5, 5, "APP"),
-	(2, 2, "WEB"),	
-	(1, 1, "WEB"),
-	(3, 3, "APP"),
-	(2, 2, "WEB"),
-	(5, 5, "WEB"),
+	(4, 3, "WEB"),   -- Compra 8 (CE)
+	(3, 4, "WEB"),  -- Compra 9 (CE)
+	(4, 5, "WEB"),   -- Compra 10 (CE)
+	(1, 2, "WEB"),
+	(1, 3, "APP"),
+	(1, 5, "APP"),
+	(2, 3, "WEB"),	
+	(1, 4, "WEB"),
+	(4, 3, "APP"),
+	(4, 2, "WEB"),
+	(5, 7, "WEB"),
     (1, 1, "APP"),
     (4, 4, "APP"),
-    (5, 5, "WEB"),
+    (5, 6, "WEB"),
     (1, 1, "WEB"),
     (3, 3, "WEB"),
     (2, 2, "WEB"),
@@ -214,17 +210,22 @@ INSERT INTO Compras(farmacia_id, cliente_id, plataforma) VALUES /*Total registra
      (5, 3, "WEB"),
     (2, 3, "WEB"),
     (4,1, "APP"),
-    (5, 5, "APP"),
-    (2, 4, "APP"),
-    (2, 2, "APP"),
-    (1, 4, "APP"),
-    (3, 5, "APP"),
-    (1, 4, "APP"),
+    (5, 6, "APP"),
+    (2, 6, "APP"),
+    (2, 1, "APP"),
+    (1, 2, "APP"),
+    (3, 6, "APP"),
+    (1, 6, "APP"),
     (2, 3, "APP"),
     (2, 1, "APP"),
     (3, 4, "APP"),
     (5, 3, "APP"),
-    (1, 1, "APP");
+    (1, 1, "APP"),
+    (1, 7, "APP"),
+    (2, 8, "PRESENCIAL"),
+    (3, 8, "PRESENCIAL"),
+    (3, 9, "APP");
+    
 
 INSERT INTO Produtos_comprados(compra_id, produto_id, quantidade, data_hora_compra, preco_unico) VALUES
 (1, 1, 10, '2023-01-15 10:30:00', 25.0),(1, 2, 2, '2023-01-15 10:30:00', 15.5),(1, 3, 1, '2023-01-15 10:30:00', 30.0),
@@ -232,12 +233,11 @@ INSERT INTO Produtos_comprados(compra_id, produto_id, quantidade, data_hora_comp
 (3, 2, 2, '2023-03-10 08:20:00', 15.0),(3, 3, 4, '2023-03-10 08:20:00', 40.0),(3, 5, 1, '2023-03-10 08:20:00', 30.0),
 (4, 1, 3, '2023-04-20 12:15:00', 10.5),(4, 2, 2, '2023-04-20 12:15:00', 17.25),(4, 3, 5, '2023-04-20 12:15:00', 25.0),
 (5, 5, 2, '2023-05-30 17:10:00', 20.0),(5, 1, 3, '2023-05-30 17:10:00', 15.3),(5, 4, 1, '2023-05-30 17:10:00', 30.0),
-(6, 1, 2, '2023-06-12 14:30:00', 20.0),(6, 3, 1, '2023-06-12 14:30:00', 30.0),
+(6, 1, 2, '2023-06-12 14:30:00', 20.0),(6, 3, 1, '2023-06-12 14:30:00', 30.0), 
 (7, 2, 3, '2023-07-05 09:45:00', 15.0),(7, 4, 2, '2023-07-05 09:45:00', 20.25),
 (8, 1, 1, '2023-08-20 11:00:00', 10.5),(8, 5, 2, '2023-08-20 11:00:00', 15.0),
 (9, 3, 3, '2023-09-15 16:15:00', 30.0),(9, 4, 1, '2023-09-15 16:15:00', 15.0),
 (10, 2, 2, '2023-10-25 13:30:00', 15.5),(10, 5, 1, '2023-10-25 13:30:00', 12.0),
-
  (11, 1, 2, '2023-11-10 08:45:00', 25.0),(11, 3, 3, '2023-11-10 08:45:00', 30.0),
 (12, 2, 1, '2023-12-15 14:20:00', 15.0),(12, 4, 4, '2023-12-15 14:20:00', 20.25),
 (13, 5, 2, '2024-01-20 09:30:00', 20.0),(13, 1, 3, '2024-01-20 09:30:00', 15.3),(13, 3, 1, '2024-01-20 09:30:00', 30.0),
@@ -245,16 +245,13 @@ INSERT INTO Produtos_comprados(compra_id, produto_id, quantidade, data_hora_comp
 (15, 3, 3, '2024-03-10 11:45:00', 30.0),(15, 4, 2, '2024-03-10 11:45:00', 20.25),
 (16, 1, 1, '2024-04-18 13:20:00', 10.5),(16, 2, 2, '2024-04-18 13:20:00', 15.0),(16, 5, 1, '2024-04-18 13:20:00', 30.0),
 (17, 4, 2, '2024-05-25 10:30:00', 25.0),(17, 1, 1, '2024-05-25 10:30:00', 15.5),
-(18, 3, 3, '2024-06-08 08:15:00', 30.0),(18, 5, 1, '2024-06-08 08:15:00', 12.0),
+(18, 3, 3, '2024-06-08 08:15:00', 30.0),(18, 5, 1, '2024-06-08 08:15:00', 12.0), 
+('20', '2', '87', '2023-03-15 10:30:00', '2'), ('20', '3', '82', '2023-03-15 10:30:00', '2'),
+('21', '5', '98', '2023-02-24 10:30:00', '3'), ('22', '1', '45', '2023-01-16 10:30:00', '4'),
+(55, 2, 2, '2023-08-25 13:30:00', 15.5),(56, 5, 1, '2023-07-25 13:30:00', 12.0),
+(57, 5, 1, '2023-07-25 13:30:00', 12.0),
+('22', '1', '2', '2023-08-19 10:30:00', '8'), ('23', '4', '6', '2023-11-15 10:30:00', '23');
 
-(163, 1, 2, '2023-11-10 08:45:00', 25.0),(11, 3, 3, '2023-11-10 08:45:00', 30.0),
-(164, 2, 1, '2023-12-15 14:20:00', 15.0),(12, 4, 4, '2023-12-15 14:20:00', 20.25),
-(165, 5, 2, '2024-01-20 09:30:00', 20.0),(13, 1, 3, '2024-01-20 09:30:00', 15.3),(13, 3, 1, '2024-01-20 09:30:00', 30.0),
-(166, 1, 2, '2024-02-28 15:15:00', 20.0),(14, 2, 1, '2024-02-28 15:15:00', 17.25),
-(167, 3, 3, '2024-03-10 11:45:00', 30.0),(15, 4, 2, '2024-03-10 11:45:00', 20.25),
-(168, 1, 1, '2024-04-18 13:20:00', 10.5),(16, 2, 2, '2024-04-18 13:20:00', 15.0),(16, 5, 1, '2024-04-18 13:20:00', 30.0),
-(169, 4, 2, '2024-05-25 10:30:00', 25.0),(17, 1, 1, '2024-05-25 10:30:00', 15.5),
-(170, 3, 3, '2024-06-08 08:15:00', 30.0),(18, 5, 1, '2024-06-08 08:15:00', 12.0);
 
 INSERT INTO Funcionarios(farmacia_id, nome, email, cargo) VALUES /*total registrado: 20 Funcionarios*/
 (1, 'Marcio Oliveira', 'marcio.oliveira@gmail.com', 'Gerente'),
@@ -282,36 +279,6 @@ INSERT INTO Funcionarios(farmacia_id, nome, email, cargo) VALUES /*total registr
 (5, 'Henrique Oliveira', 'henrique.oliveira@hotmail.com', 'Farmacêutico'),
 (5, 'Larissa Santos', 'larissa.santos@gmail.com', 'Caixa');
 
-INSERT INTO Telefones(numero) VALUES -- total registrado: 10 + 29 = 39 telefones
-('(31)99533-5288'), ('(31)98765-4321'), -- Cliente 1 - MG
-('(61)92345-6789'), ('(61)93456-7890'), -- Cliente 2 - DF
-('(61)91234-5678'), ('(61)94567-8901'), -- Cliente 3 - DF
-('(61)97890-1234'), ('(61)96543-2109'), -- Cliente 4 - DF 
-('(88)99999-0000'), ('(88)98888-1111'), -- Cliente 5 - CE
-('99533-1234'), ('99533-5678'), -- Funcionário 1
-('92345-4321'), ('92345-8765'), -- Funcionário 2
-('91234-9876'),                 -- Funcionário 3
-('97890-5678'), ('97890-9012'), -- Funcionário 4
-('99999-2345'),                 -- Funcionário 5
-('99533-7890'), ('98765-4321'), -- Funcionário 6
-('92345-8765'),                 -- Funcionário 7
-('91234-0123'), ('94567-8901'), -- Funcionário 8
-('97890-2109'),                 -- Funcionário 9
-('99999-4567'),                 -- Funcionário 10
-('99533-8901'), ('98765-1234'), -- Funcionário 11
-('92345-0987'),                 -- Funcionário 12
-('91234-3456'), ('94567-6789'), -- Funcionário 13
-('97890-4321'),                 -- Funcionário 14
-('99999-7890'),                 -- Funcionário 15
-('99533-2109'), ('98765-2345'), -- Funcionário 16
-('92345-9012'),                 -- Funcionário 17
-('91234-5678'), ('94567-8901'), -- Funcionário 18
-('97890-2345'),                 -- Funcionário 19
-('99999-0123');                 -- Funcionário 20
-
-INSERT INTO TelefoneClientes(cliente_id, telefone_id) VALUES
-  (1, 1), (1, 2), (2, 3), (2, 4), (3, 5), (3, 6), (4, 7), (4, 8), (5, 9), (5, 10);
-  
 
 INSERT INTO Entregadores (nome) VALUES /*total registrado: 10*/
 ('Sérgio Oliveira'),('Ana Silva'),('Carlos Santos'),('Juliana Pereira'),('Roberto Souza'),
@@ -393,51 +360,6 @@ WHERE
 
 --- COMANDOS PARA A CONSULTA 2 ---
 
-DELIMITER //
-CREATE PROCEDURE BuscarClientesPorUF(IN uf_param VARCHAR(2))
-BEGIN
-    SELECT
-        C.id AS id,
-        C.nome AS nome,
-        T.numero AS telefone,
-        C.idade AS idade,
-        COUNT(DISTINCT Co.id) AS nr_de_compras
-    FROM
-        Clientes C
-    LEFT JOIN
-        TelefoneClientes TC ON C.id = TC.cliente_id
-    LEFT JOIN
-        Telefones T ON TC.telefone_id = T.id
-    LEFT JOIN
-        Compras Co ON C.id = Co.cliente_id
-    LEFT JOIN
-        Cidades Ci ON C.cidade_id = Ci.id
-    WHERE
-        Ci.uf = uf_param
-    GROUP BY
-        C.id, C.nome, T.numero, C.idade
-    HAVING
-        COUNT(DISTINCT Co.id) = (
-            SELECT MAX(nr_de_compras)
-            FROM (
-                SELECT
-                    C.id AS cliente_id,
-                    COUNT(DISTINCT Co.id) AS nr_de_compras
-                FROM
-                    Clientes C
-                LEFT JOIN
-                    Compras Co ON C.id = Co.cliente_id
-                LEFT JOIN
-                    Cidades Ci ON C.cidade_id = Ci.id
-                WHERE
-                    Ci.uf = uf_param
-                GROUP BY
-                    C.id
-            ) AS ComprasPorCliente
-        );
-END //
-DELIMITER ;
-CALL BuscarClientesPorUF('DF'); -- Substitua pelo estado desejado 'DF', 'CE' ou 'MG'
 
 
 
@@ -445,6 +367,35 @@ CALL BuscarClientesPorUF('DF'); -- Substitua pelo estado desejado 'DF', 'CE' ou 
 
 
 --- COMANDOS PARA A CONSULTA 4 ---
+-- intencionalmente, nós colocamos o Cliente Lucas de id 7 fazendo somente 
+-- uma compra na farmacia de id 1 30 dias antes
+
+
+
+DELIMITER $$
+USE `t3`$$
+CREATE PROCEDURE `consulta4_passandoIdFarmacia` (id_farmacia_param INT)
+BEGIN
+SELECT clien.id as id_cliente, clien.nome as nome, clien.telefone, clien.idade as idade, clientes_ultimo_ano.qtd_comprada_ano as qtd_comprada_ano
+	FROM Clientes AS clien
+	JOIN (SELECT clien.nome as cliente, SUM(pc.quantidade) as qtd_comprada_ano
+			FROM Farmacias AS f 
+				JOIN Compras AS c ON f.id = c.farmacia_id 
+				JOIN Produtos_comprados AS pc ON c.id = pc.compra_id
+				JOIN Clientes AS clien ON clien.id = c.cliente_id
+			WHERE pc.data_hora_compra > SUBDATE(CURDATE(), INTERVAL 365 DAY) AND f.id = id_farmacia_param 
+			GROUP BY clien.id) as clientes_ultimo_ano ON clientes_ultimo_ano.cliente = clien.nome
+	WHERE clien.id not in(SELECT clien.id
+			FROM Farmacias AS f 
+				JOIN Compras AS c ON f.id = c.farmacia_id 
+				JOIN Produtos_comprados AS pc ON c.id = pc.compra_id
+				JOIN Clientes AS clien ON clien.id = c.cliente_id
+			WHERE pc.data_hora_compra > SUBDATE(CURDATE(), INTERVAL 30 DAY) AND f.id = id_farmacia_param);
+END$$
+
+DELIMITER ;
+
+CALL consulta4_passandoIdFarmacia(1);
 
 --- COMANDOS PARA A CONSULTA 5 ---
 
@@ -458,7 +409,7 @@ FROM Farmacias AS f
 	JOIN Produtos AS P ON p.id = pc.produto_id
     JOIN Estoque as e ON p.id = e.produto_id
     JOIN Cidades AS cid ON f.sede = cid.id
-WHERE p.id = 1 AND pc.data_hora_compra > SUBDATE(CURDATE(), INTERVAL 30 DAY) AND c.plataforma = "APP"
+WHERE p.id = 5 AND pc.data_hora_compra > SUBDATE(CURDATE(), INTERVAL 30 DAY) AND c.plataforma = "APP"
 GROUP BY f.id
 ORDER BY qtd_vendas DESC
 LIMIT 10;
