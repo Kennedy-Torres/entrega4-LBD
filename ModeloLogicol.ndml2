@@ -261,98 +261,6 @@
           },
           {
             "objectType": "Table_LOGICAL",
-            "name": "Farmacias",
-            "comment": "",
-            "oldName": "",
-            "fields": [
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "id",
-                "type": "INTEGER",
-                "length": 0,
-                "decimals": 0,
-                "isNullable": false,
-                "defaultType": "None",
-                "defaultValue": "",
-                "comment": "",
-                "oldName": "id"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "nome",
-                "type": "CHAR VARYING",
-                "length": 255,
-                "decimals": 0,
-                "isNullable": true,
-                "defaultType": "None",
-                "defaultValue": "",
-                "comment": "",
-                "oldName": "nome"
-              }
-            ],
-            "foreignKeys": [
-              {
-                "objectType": "ForeignKey_LOGICAL",
-                "name": "fk_Farmacias_Compras_1",
-                "fields": [
-                  "id"
-                ],
-                "referencedSchema": "default",
-                "referencedTable": "Compras",
-                "referencedFields": [
-                  "farmacia_id"
-                ],
-                "sourceCardinality": "NoneRelationship",
-                "targetCardinality": "ManyRelationship",
-                "comment": "",
-                "oldName": ""
-              },
-              {
-                "objectType": "ForeignKey_LOGICAL",
-                "name": "fk_Farmacias_Unidades_1",
-                "fields": [
-                  "id"
-                ],
-                "referencedSchema": "default",
-                "referencedTable": "Unidades",
-                "referencedFields": [
-                  "farmacia_id"
-                ],
-                "sourceCardinality": "NoneRelationship",
-                "targetCardinality": "ManyRelationship",
-                "comment": "",
-                "oldName": ""
-              },
-              {
-                "objectType": "ForeignKey_LOGICAL",
-                "name": "fk_Farmacias_Funcionarios_1",
-                "fields": [
-                  "id"
-                ],
-                "referencedSchema": "default",
-                "referencedTable": "Funcionarios",
-                "referencedFields": [
-                  "farmacia_id"
-                ],
-                "sourceCardinality": "NoneRelationship",
-                "targetCardinality": "ManyRelationship",
-                "comment": "",
-                "oldName": ""
-              }
-            ],
-            "indexes": [],
-            "uniques": [],
-            "primaryKey": {
-              "objectType": "PrimaryKey_LOGICAL",
-              "name": "",
-              "fields": [
-                "id"
-              ],
-              "oldName": ""
-            }
-          },
-          {
-            "objectType": "Table_LOGICAL",
             "name": "Retiradas",
             "comment": "",
             "oldName": "",
@@ -676,118 +584,6 @@
           },
           {
             "objectType": "Table_LOGICAL",
-            "name": "Funcionarios",
-            "comment": "",
-            "oldName": "",
-            "fields": [
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "id",
-                "type": "INTEGER",
-                "length": 0,
-                "decimals": 0,
-                "isNullable": false,
-                "defaultType": "None",
-                "defaultValue": "",
-                "comment": "",
-                "oldName": "id"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "farmacia_id",
-                "type": "INTEGER",
-                "length": 0,
-                "decimals": 0,
-                "isNullable": true,
-                "defaultType": "None",
-                "defaultValue": "",
-                "comment": "",
-                "oldName": "farmacia_id"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "nome",
-                "type": "CHAR VARYING",
-                "length": 255,
-                "decimals": 0,
-                "isNullable": true,
-                "defaultType": "None",
-                "defaultValue": "",
-                "comment": "",
-                "oldName": "nome"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "email",
-                "type": "CHAR VARYING",
-                "length": 255,
-                "decimals": 0,
-                "isNullable": true,
-                "defaultType": "None",
-                "defaultValue": "",
-                "comment": "",
-                "oldName": "email"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "cargo",
-                "type": "CHAR VARYING",
-                "length": 255,
-                "decimals": 0,
-                "isNullable": true,
-                "defaultType": "None",
-                "defaultValue": "",
-                "comment": "",
-                "oldName": "cargo"
-              }
-            ],
-            "foreignKeys": [
-              {
-                "objectType": "ForeignKey_LOGICAL",
-                "name": "fk_Funcionarios_TelefonesFuncionarios_1",
-                "fields": [
-                  "id"
-                ],
-                "referencedSchema": "default",
-                "referencedTable": "TelefoneFuncionarios",
-                "referencedFields": [
-                  "funcionario_id"
-                ],
-                "sourceCardinality": "NoneRelationship",
-                "targetCardinality": "ManyRelationship",
-                "comment": "",
-                "oldName": ""
-              },
-              {
-                "objectType": "ForeignKey_LOGICAL",
-                "name": "fk_Funcionarios_Telefones_1",
-                "fields": [
-                  "id"
-                ],
-                "referencedSchema": "default",
-                "referencedTable": "Telefones",
-                "referencedFields": [
-                  "funcionario_id"
-                ],
-                "sourceCardinality": "NoneRelationship",
-                "targetCardinality": "ManyRelationship",
-                "comment": "",
-                "oldName": ""
-              }
-            ],
-            "indexes": [],
-            "uniques": [],
-            "primaryKey": {
-              "objectType": "PrimaryKey_LOGICAL",
-              "name": "",
-              "fields": [
-                "id"
-              ],
-              "oldName": ""
-            }
-          },
-          {
-            "objectType": "Table_LOGICAL",
             "name": "TelefoneFuncionarios",
             "comment": "",
             "oldName": "",
@@ -1016,12 +812,12 @@
               },
               {
                 "objectType": "ForeignKey_LOGICAL",
-                "name": "fk_Clientes_Telefones_1",
+                "name": "fk_Clientes_TelefonesClientes_1",
                 "fields": [
                   "id"
                 ],
                 "referencedSchema": "default",
-                "referencedTable": "Telefones",
+                "referencedTable": "TelefonesClientes",
                 "referencedFields": [
                   "cliente_id"
                 ],
@@ -1111,7 +907,7 @@
           },
           {
             "objectType": "Table_LOGICAL",
-            "name": "Produtos_comprados",
+            "name": "Farmacias",
             "comment": "",
             "oldName": "",
             "fields": [
@@ -1129,43 +925,111 @@
               },
               {
                 "objectType": "TableField_LOGICAL",
-                "name": "compra_id",
-                "type": "INTEGER",
-                "length": 0,
-                "decimals": 0,
-                "isNullable": true,
-                "defaultType": "None",
-                "defaultValue": "",
-                "comment": "",
-                "oldName": "compra_id"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "produto_id",
-                "type": "INTEGER",
-                "length": 0,
-                "decimals": 0,
-                "isNullable": true,
-                "defaultType": "None",
-                "defaultValue": "",
-                "comment": "",
-                "oldName": "produto_id"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "quantidade",
-                "type": "INTEGER",
+                "name": "nome",
+                "type": "CHAR VARYING",
                 "length": 255,
                 "decimals": 0,
                 "isNullable": true,
                 "defaultType": "None",
                 "defaultValue": "",
                 "comment": "",
-                "oldName": "quantidade"
+                "oldName": "nome"
               },
               {
                 "objectType": "TableField_LOGICAL",
-                "name": "preco_unitario",
+                "name": "sede",
+                "type": "INT",
+                "length": 255,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "sede"
+              }
+            ],
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_Farmacias_Compras_1",
+                "fields": [
+                  "id"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "Compras",
+                "referencedFields": [
+                  "farmacia_id"
+                ],
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "ManyRelationship",
+                "comment": "",
+                "oldName": ""
+              },
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_Farmacias_Unidades_1",
+                "fields": [
+                  "id"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "Unidades",
+                "referencedFields": [
+                  "farmacia_id"
+                ],
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "ManyRelationship",
+                "comment": "",
+                "oldName": ""
+              },
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_Farmacias_Funcionarios_1",
+                "fields": [
+                  "id"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "Funcionarios",
+                "referencedFields": [
+                  "farmacia_id"
+                ],
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "ManyRelationship",
+                "comment": "",
+                "oldName": ""
+              }
+            ],
+            "indexes": [],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [
+                "id"
+              ],
+              "oldName": ""
+            }
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "Funcionarios",
+            "comment": "",
+            "oldName": "",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "id",
+                "type": "INTEGER",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": false,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "farmacia_id",
                 "type": "INTEGER",
                 "length": 0,
                 "decimals": 0,
@@ -1173,10 +1037,218 @@
                 "defaultType": "None",
                 "defaultValue": "",
                 "comment": "",
-                "oldName": "preco_unitario"
+                "oldName": "farmacia_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "nome",
+                "type": "CHAR VARYING",
+                "length": 255,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "nome"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "email",
+                "type": "CHAR VARYING",
+                "length": 255,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "email"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "cargo",
+                "type": "CHAR VARYING",
+                "length": 255,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "cargo"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "telefone_1",
+                "type": "CHAR VARYING",
+                "length": 255,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "telefone_1"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "telefone_2",
+                "type": "CHAR VARYING",
+                "length": 255,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "telefone_2"
+              }
+            ],
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_Funcionarios_TelefonesFuncionarios_1",
+                "fields": [
+                  "id"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "TelefoneFuncionarios",
+                "referencedFields": [
+                  "funcionario_id"
+                ],
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "ManyRelationship",
+                "comment": "",
+                "oldName": ""
+              }
+            ],
+            "indexes": [],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [
+                "id"
+              ],
+              "oldName": ""
+            }
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "TelefonesClientes",
+            "comment": "",
+            "oldName": "",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "id",
+                "type": "INTEGER",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": false,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "telefone_id",
+                "type": "INTEGER",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "telefone_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "cliente_id",
+                "type": "INTEGER",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "cliente_id"
               }
             ],
             "foreignKeys": [],
+            "indexes": [],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [
+                "id"
+              ],
+              "oldName": ""
+            }
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "Telefones",
+            "comment": "",
+            "oldName": "",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "id",
+                "type": "INTEGER",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": false,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "numero",
+                "type": "CHAR VARYING",
+                "length": 255,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "numero"
+              }
+            ],
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_Telefones_TelefonesClientes_1",
+                "fields": [
+                  "id"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "TelefoneClientes",
+                "referencedFields": [
+                  "telefone_id"
+                ],
+                "sourceCardinality": "ManyRelationship",
+                "targetCardinality": "NoneRelationship",
+                "comment": "",
+                "oldName": ""
+              },
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_Telefones_TelefonesClientes_2",
+                "fields": [
+                  "id"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "TelefonesClientes",
+                "referencedFields": [
+                  "telefone_id"
+                ],
+                "sourceCardinality": "ManyRelationship",
+                "targetCardinality": "NoneRelationship",
+                "comment": "",
+                "oldName": ""
+              }
+            ],
             "indexes": [],
             "uniques": [],
             "primaryKey": {
@@ -1232,18 +1304,6 @@
               },
               {
                 "objectType": "TableField_LOGICAL",
-                "name": "valor_total",
-                "type": "DECIMAL",
-                "length": 255,
-                "decimals": 0,
-                "isNullable": true,
-                "defaultType": "None",
-                "defaultValue": "",
-                "comment": "",
-                "oldName": "valor_total"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
                 "name": "data_hora",
                 "type": "TIMESTAMP",
                 "length": 255,
@@ -1265,6 +1325,18 @@
                 "defaultValue": "",
                 "comment": "",
                 "oldName": "desconto_compra"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "plataforma",
+                "type": "CHAR VARYING",
+                "length": 255,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "plataforma"
               }
             ],
             "foreignKeys": [
@@ -1314,7 +1386,7 @@
           },
           {
             "objectType": "Table_LOGICAL",
-            "name": "Telefones",
+            "name": "Produtos_comprados",
             "comment": "",
             "oldName": "",
             "fields": [
@@ -1332,7 +1404,7 @@
               },
               {
                 "objectType": "TableField_LOGICAL",
-                "name": "funcionario_id",
+                "name": "compra_id",
                 "type": "INTEGER",
                 "length": 0,
                 "decimals": 0,
@@ -1340,11 +1412,11 @@
                 "defaultType": "None",
                 "defaultValue": "",
                 "comment": "",
-                "oldName": "funcionario_id"
+                "oldName": "compra_id"
               },
               {
                 "objectType": "TableField_LOGICAL",
-                "name": "cliente_id",
+                "name": "produto_id",
                 "type": "INTEGER",
                 "length": 0,
                 "decimals": 0,
@@ -1352,51 +1424,46 @@
                 "defaultType": "None",
                 "defaultValue": "",
                 "comment": "",
-                "oldName": "cliente_id"
+                "oldName": "produto_id"
               },
               {
                 "objectType": "TableField_LOGICAL",
-                "name": "numero",
-                "type": "CHAR VARYING",
+                "name": "quantidade",
+                "type": "INTEGER",
                 "length": 255,
                 "decimals": 0,
                 "isNullable": true,
                 "defaultType": "None",
                 "defaultValue": "",
                 "comment": "",
-                "oldName": "numero"
+                "oldName": "quantidade"
               },
               {
                 "objectType": "TableField_LOGICAL",
-                "name": "numero2",
-                "type": "CHAR VARYING",
+                "name": "data_hora_compra",
+                "type": "TIMESTAMP",
                 "length": 255,
                 "decimals": 0,
                 "isNullable": true,
                 "defaultType": "None",
                 "defaultValue": "",
                 "comment": "",
-                "oldName": "numero2"
-              }
-            ],
-            "foreignKeys": [
+                "oldName": "data_hora_compra"
+              },
               {
-                "objectType": "ForeignKey_LOGICAL",
-                "name": "fk_Telefones_TelefonesClientes_1",
-                "fields": [
-                  "id"
-                ],
-                "referencedSchema": "default",
-                "referencedTable": "TelefoneClientes",
-                "referencedFields": [
-                  "telefone_id"
-                ],
-                "sourceCardinality": "ManyRelationship",
-                "targetCardinality": "NoneRelationship",
+                "objectType": "TableField_LOGICAL",
+                "name": "preco_unitario",
+                "type": "INTEGER",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
                 "comment": "",
-                "oldName": ""
+                "oldName": "preco_unitario"
               }
             ],
+            "foreignKeys": [],
             "indexes": [],
             "uniques": [],
             "primaryKey": {
@@ -1804,6 +1871,22 @@
           "tableName": "EstoqueUnidade",
           "x": 1190,
           "y": 90,
+          "width": 200,
+          "height": 200,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "TelefonesClientes",
+          "x": 100,
+          "y": 810,
           "width": 200,
           "height": 200,
           "isBold": false,
@@ -2348,29 +2431,33 @@
           }
         },
         {
-          "name": "fk_Funcionarios_Telefones_1",
-          "sourceTableName": "Funcionarios",
+          "name": "fk_Telefones_TelefonesClientes_2",
+          "sourceTableName": "Telefones",
           "sourceSchemaName": "default",
           "lineWidth": 1,
           "visible": true,
           "vertices": [
             {
-              "x": 465,
-              "y": 350
+              "x": 200,
+              "y": 715
             },
             {
               "x": 200,
-              "y": 350
+              "y": 750
             },
             {
               "x": 200,
-              "y": 485
+              "y": 750
+            },
+            {
+              "x": 200,
+              "y": 795
             }
           ],
           "label": {
-            "x": 282,
-            "y": 302,
-            "width": 193,
+            "x": 208,
+            "y": 705,
+            "width": 225,
             "height": 40,
             "fontName": "Arial Unicode MS",
             "fontSize": 14,
@@ -2386,7 +2473,7 @@
           }
         },
         {
-          "name": "fk_Clientes_Telefones_1",
+          "name": "fk_Clientes_TelefonesClientes_1",
           "sourceTableName": "Clientes",
           "sourceSchemaName": "default",
           "lineWidth": 1,
@@ -2397,18 +2484,22 @@
               "y": 910
             },
             {
-              "x": 200,
+              "x": 380,
               "y": 910
             },
             {
-              "x": 200,
-              "y": 715
+              "x": 380,
+              "y": 910
+            },
+            {
+              "x": 315,
+              "y": 910
             }
           ],
           "label": {
-            "x": 283,
+            "x": 232,
             "y": 862,
-            "width": 162,
+            "width": 213,
             "height": 40,
             "fontName": "Arial Unicode MS",
             "fontSize": 14,
