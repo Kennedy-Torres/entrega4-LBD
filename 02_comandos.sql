@@ -7,15 +7,20 @@ CREATE TABLE Produtos(
     data_validade DATE,
     data_fabricacao DATE
 );
-CREATE TABLE Farmacias(
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100) NULL
-);
+
 CREATE TABLE Cidades(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NULL,
     uf VARCHAR(100) NULL
 );
+
+CREATE TABLE Farmacias(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NULL,
+    sede INT NOT NULL,
+    FOREIGN KEY (sede) REFERENCES Cidades(id)
+);
+
 CREATE TABLE Estoque(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     produto_id INT NULL,
@@ -48,6 +53,8 @@ CREATE TABLE Funcionarios(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	farmacia_id INT NULL,
     nome VARCHAR(100) NULL,
+    telefone_1 VARCHAR(20) NULL,
+    telefone_2 VARCHAR(20) NULL,
     email VARCHAR(100) NULL,
     cargo VARCHAR(100) NULL,
     FOREIGN KEY (farmacia_id) REFERENCES Farmacias(id)
@@ -56,13 +63,7 @@ CREATE TABLE Telefones(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     numero VARCHAR(100) NOT NULL
 );
-CREATE TABLE TelefoneFuncionarios(
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    telefone_id INT NOT NULL,
-    funcionario_id INT NOT NULL,
-    FOREIGN KEY (telefone_id) REFERENCES Telefones(id),
-    FOREIGN KEY (funcionario_id) REFERENCES Funcionarios(id)
-);
+
 CREATE TABLE TelefoneClientes(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     telefone_id INT NOT NULL,
@@ -74,7 +75,6 @@ CREATE TABLE Compras(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	farmacia_id INT NULL,
     cliente_id INT NULL,
-    valor_total DOUBLE NULL,
 	plataforma VARCHAR(20) NOT NULL,
     FOREIGN KEY (farmacia_id) REFERENCES Farmacias(id),
     FOREIGN KEY (cliente_id) REFERENCES Clientes(id)
@@ -114,13 +114,14 @@ INSERT INTO Produtos(nome, fabricante, codigo_de_barra, data_validade, data_fabr
 ("Loratadina","HealthMeds",71004,"2023-12-28","2020-12-28"),
 ("Omeprazol","MegaPharm",71005,"2028-05-08","2020-05-08");
 
-INSERT INTO Farmacias(nome) VALUES /*5*/
-("Drogasil"),("DrogaFarma"),("DrogaCenter"),("DrogaSena"),("Drogaria Popular");
-
 INSERT INTO Cidades(nome, uf) VALUES /*4*/
 ("Belo Horizonte","MG"),
 ("Taguatinga","DF"),("Samambaia","DF")
 ,("Fortaleza","CE");
+
+INSERT INTO Farmacias(nome, sede) VALUES /*5*/
+("Drogasil", 1),("DrogaFarma", 2),("DrogaCenter", 3),("DrogaSena", 1),("Drogaria Popular",4);
+
 
 INSERT INTO Estoque(produto_id, quantidade) VALUES /*15x5*/
 (1,12),(1,18),(1,20),(1,8),(1,7),(1,12),(1,3),(1,6),(1,34),(1,44),(1,11),(1,9),(1,88),(1,45),(1,4), /*Estoques do Produto 1*/
@@ -170,47 +171,60 @@ INSERT INTO Clientes(cidade_id,nome, idade) VALUES /*total registrado: 5*/
 (3,'Ana',28),
 (4,'Pedro',50);
 
-INSERT INTO Compras(farmacia_id, cliente_id, valor_total) VALUES /*Total registrado: 10*/
-(1, 1, 150.5), -- Compra 1 (DF)
-(1, 1, 75.25),  -- Compra 2 (DF)
-(3, 3, 200.0),  -- Compra 3 (CE)
-(4, 4, 120.75), -- Compra 4 (CE)
-(5, 5, 180.3),  -- Compra 5 (DF)
-(1, 1, 75.0),   -- Compra 6 (DF)
-(2, 2, 150.0),  -- Compra 7 (DF)
-(4, 4, 50.0),   -- Compra 8 (CE)
-(4, 4, 100.0),  -- Compra 9 (CE)
-(4, 4, 25.0),   -- Compra 10 (CE)
-
-(2, 2, 50.0),
-    (3, 3, 75.0),
-    (5, 5, 90.0),
-    (2, 2, 120.0),
-    (1, 1, 30.0),
-    (3, 3, 180.0),
-    (2, 2, 45.0),
-    (5, 5, 60.0),
-    (1, 1, 100.0),
-    (4, 4, 80.0),
-    (5, 5, 45.0),
-    (1, 1, 150.0),
-    (3, 3, 95.0),
-    (2, 2, 110.0),
-    (4, 4, 70.0),
-    (5, 5, 120.0),
-    (3, 3, 85.0),
-    (4, 4, 55.0),
-    (5, 5, 95.0),
-    (1, 1, 65.0),
-    (2, 2, 75.0),
-    (4, 4, 90.0),
-    (5, 5, 110.0),
-    (1, 1, 80.0),
-    (3, 3, 120.0),
-    (2, 2, 100.0),
-    (4, 4, 105.0),
-    (5, 5, 75.0),
-    (1, 1, 95.0);
+INSERT INTO Compras(farmacia_id, cliente_id, plataforma) VALUES /*Total registrado: 10*/
+	(1, 1, "WEB"), -- Compra 1 (DF)
+	(1, 1, "WEB"),  -- Compra 2 (DF)
+	(3, 3, "APP"),  -- Compra 3 (CE)
+	(4, 4, "WEB"), -- Compra 4 (CE)
+	(5, 5, "APP"),  -- Compra 5 (DF)
+	(1, 1, "APP"),   -- Compra 6 (DF)
+	(2, 2, "APP"),  -- Compra 7 (DF)
+	(4, 4, "WEB"),   -- Compra 8 (CE)
+	(4, 4, "WEB"),  -- Compra 9 (CE)
+	(4, 4, "WEB"),   -- Compra 10 (CE)
+	(2, 2, "WEB"),
+	(3, 3, "APP"),
+	(5, 5, "APP"),
+	(2, 2, "WEB"),	
+	(1, 1, "WEB"),
+	(3, 3, "APP"),
+	(2, 2, "WEB"),
+	(5, 5, "WEB"),
+    (1, 1, "APP"),
+    (4, 4, "APP"),
+    (5, 5, "WEB"),
+    (1, 1, "WEB"),
+    (3, 3, "WEB"),
+    (2, 2, "WEB"),
+    (4, 4, "WEB"),
+    (5, 5, "WEB"),
+    (3, 3, "WEB"),
+    (4, 4, "APP"),
+    (5, 5, "APP"),
+    (1, 1, "APP"),
+    (2, 2, "APP"),
+    (4, 4, "APP"),
+    (5, 5, "APP"),
+    (1, 1, "APP"),
+    (3, 3, "APP"),
+    (2, 2, "APP"),
+    (4, 4, "APP"),
+    (5, 5, "APP"),
+    (1, 1, "APP"),
+     (5, 3, "WEB"),
+    (2, 3, "WEB"),
+    (4,1, "APP"),
+    (5, 5, "APP"),
+    (2, 4, "APP"),
+    (2, 2, "APP"),
+    (1, 4, "APP"),
+    (3, 5, "APP"),
+    (1, 4, "APP"),
+    (2, 3, "APP"),
+    (2, 1, "APP"),
+    (3, 4, "APP"),
+    (5, 3, "APP"),
+    (1, 1, "APP");
 
 INSERT INTO Produtos_comprados(compra_id, produto_id, quantidade, data_hora_compra, preco_unico) VALUES
 (1, 1, 10, '2023-01-15 10:30:00', 25.0),(1, 2, 2, '2023-01-15 10:30:00', 15.5),(1, 3, 1, '2023-01-15 10:30:00', 30.0),
@@ -289,10 +303,6 @@ INSERT INTO Telefones(numero) VALUES -- total registrado: 10 + 29 = 39 telefones
 INSERT INTO TelefoneClientes(cliente_id, telefone_id) VALUES
   (1, 1), (1, 2), (2, 3), (2, 4), (3, 5), (3, 6), (4, 7), (4, 8), (5, 9), (5, 10);
   
-  INSERT INTO TelefoneFuncionarios(funcionario_id, telefone_id) VALUES
-  (1, 11), (1, 12), (2, 13), (2, 14), (3, 15), (4, 16), (4, 17), (5, 18), (6, 19), (7, 20),
-  (8, 21), (8, 22), (9, 23), (10, 24), (11, 25), (11, 26), (12, 27), (13, 28), (13, 29),
-  (14, 30), (15, 31), (16, 32), (16, 33), (17, 34), (18, 35), (18, 36), (19, 37), (20, 38);
 
 INSERT INTO Entregadores (nome) VALUES /*total registrado: 10*/
 ('Sérgio Oliveira'),('Ana Silva'),('Carlos Santos'),('Juliana Pereira'),('Roberto Souza'),
@@ -432,17 +442,16 @@ CALL BuscarClientesPorUF('DF'); -- Substitua pelo estado desejado 'DF', 'CE' ou 
 --- COMANDOS PARA A CONSULTA 6 ---
 
 --- COMANDOS PARA A CONSULTA 7 ---
-SELECT p.nome as produto, p.fabricante as fabricante, f.nome AS farmacia, cid.nome as cidade, cid.uf as uf, SUM(pc.quantidade) as qtd_vendas
+SELECT p.nome as produto, p.fabricante as fabricante, f.nome AS farmacia, cid.nome as cidade, cid.uf as uf, SUM(pc.quantidade) AS qtd_vendas
 FROM Farmacias AS f 
 	JOIN Compras AS c ON f.id = c.farmacia_id 
 	JOIN Produtos_comprados AS pc ON c.id = pc.compra_id
 	JOIN Produtos AS P ON p.id = pc.produto_id
     JOIN Estoque as e ON p.id = e.produto_id
-    JOIN EstoqueUnidade as eu ON e.id = eu.estoque_id
-    JOIN Unidades AS u ON u.id = eu.unidade_id
-    JOIN Cidades AS cid ON cid.id = u.cidade_id
-WHERE p.id = 1 AND pc.data_hora_compra > SUBDATE(CURDATE(), INTERVAL 30 DAY) AND c.plataforma = ""
-GROUP BY f.id, cid.nome, cid.uf
+    JOIN Cidades AS cid ON f.sede = cid.id
+WHERE p.id = 1 AND pc.data_hora_compra > SUBDATE(CURDATE(), INTERVAL 30 DAY) AND c.plataforma = "APP"
+GROUP BY f.id
+ORDER BY qtd_vendas DESC
 LIMIT 10;
 --- COMANDOS PARA A CONSULTA 8 ---
 SELECT f.nome as farmacia, func.nome as gerente, func.email, SUM(pc.quantidade) as quantidade
