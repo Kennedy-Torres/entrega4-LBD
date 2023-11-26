@@ -25,6 +25,7 @@ CREATE TABLE Estoque(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     produto_id INT NULL,
     data_validade DATE NULL,
+    quantidade INT NULL,
     FOREIGN KEY (produto_id) REFERENCES Produtos(id)
 );
 CREATE TABLE Unidades(
@@ -39,7 +40,6 @@ CREATE TABLE EstoqueUnidade (
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     estoque_id INT NULL,
     unidade_id INT NULL,
-    quantidade INT NULL,
     FOREIGN KEY (estoque_id) REFERENCES Estoque(id),
     FOREIGN KEY (unidade_id) REFERENCES Unidades(id)
 );
@@ -108,12 +108,12 @@ INSERT INTO Farmacias(nome, sede) VALUES /*5*/
 ("Drogasil", 1),("DrogaFarma", 2),("DrogaCenter", 3),("DrogaSena", 1),("Drogaria Popular",4);
 
 
-INSERT INTO Estoque(produto_id, data_validade) VALUES /*15x5*/
-(1, "2025-10-20"),(1, "2023-08-15"),(1, "2024-12-03"),(1, "2022-06-10"),(1, "2023-02-28"),(1, "2024-09-22"),(1, "2023-11-05"),(1, "2022-09-30"),(1, "2023-07-14"),(1, "2024-04-01"),(1, "2023-01-15"),(1, "2022-11-30"),(1, "2024-02-18"),(1, "2023-05-25"),(1, "2024-08-08"), /*Estoques do Produto 1*/
-(2, "2023-09-17"),(2, "2023-12-20"),(2, "2022-04-05"),(2, "2022-08-22"),(2, "2023-03-10"),(2, "2023-03-10"),(2, "2022-07-15"),(2, "2022-09-22"),(2, "2022-08-30"),(2, "2022-04-10"),(2, "2022-12-30"),(2, "2023-05-01"),(2, "2023-03-01"),(2, "2022-12-12"),(2, "2023-01-05"), /*Estoques do Produto 2*/
-(3, "2022-10-01"),(3, "2023-07-08"),(3, "2025-01-15"),(3, "2022-10-10"),(3, "2023-05-02"),(3, "2023-05-02"),(3, "2023-06-15"),(3, "2023-07-22"),(3, "2023-08-01"),(3, "2023-09-10"),(3, "2023-10-01"),(3, "2023-12-05"),(3, "2024-11-18"),(3, "2025-02-03"),(3, "2022-10-12"), /*Estoques do Produto 3*/
-(4, "2023-03-10"),(4, "2024-11-02"),(4, "2025-01-10"),(4, "2024-11-13"),(4, "2022-01-01"),(4, "2023-05-15"),(4, "2023-06-10"),(4, "2023-05-02"),(4, "2023-07-12"),(4, "2023-05-10"),(4, "2023-06-01"),(4, "2023-03-01"),(4, "2024-05-25"),(4, "2023-03-03"),(4, "2024-01-23"), /*Estoques do Produto 4*/
-(5, "2022-01-01"),(5, "2024-02-15"),(5, "2024-09-02"),(5, "2025-05-10"),(5, "2026-03-20"),(5, "2024-11-13"),(5, "2024-01-23"),(5, "2022-06-01"),(5, "2022-09-04"),(5, "2023-03-10"),(5, "2024-04-30"),(5, "2023-03-01"),(5, "2023-10-10"),(5, "2023-08-09"),(5, "2023-07-08"); /*Estoques do Produto 5*/
+INSERT INTO Estoque(produto_id, data_validade, quantidade) VALUES /*15x5*/
+(1, "2025-10-20",12),(1, "2023-08-15",18),(1, "2024-12-03",20),(1, "2022-06-10",8),(1, "2023-02-28",7),(1, "2024-09-22",2),(1, "2023-11-05",12),(1, "2022-09-30",3),(1, "2023-07-14",6),(1, "2024-04-01",34),(1, "2023-01-15",44),(1, "2022-11-30",11),(1, "2024-02-18",9),(1, "2023-05-25",88),(1, "2024-08-08",45), /*Estoques do Produto 1*/
+(2, "2023-09-17",22),(2, "2023-12-20",23),(2, "2022-04-05",24),(2, "2022-08-22",25),(2, "2023-03-10",26),(2, "2023-03-10",27),(2, "2022-07-15",28),(2, "2022-09-22",29),(2, "2022-08-30",30),(2, "2022-04-10",31),(2, "2022-12-30",32),(2, "2023-05-01",33),(2, "2023-03-01",34),(2, "2022-12-12",35),(2, "2023-01-05",36), /*Estoques do Produto 2*/
+(3, "2022-10-01",37),(3, "2023-07-08",38),(3, "2025-01-15",39),(3, "2022-10-10",40),(3, "2023-05-02",41),(3, "2023-05-02",42),(3, "2023-06-15",43),(3, "2023-07-22",44),(3, "2023-08-01",45),(3, "2023-09-10",46),(3, "2023-10-01",47),(3, "2023-12-05",48),(3, "2024-11-18",49),(3, "2025-02-03",50),(3, "2022-10-12",51), /*Estoques do Produto 3*/
+(4, "2023-03-10",52),(4, "2024-11-02",53),(4, "2025-01-10",54),(4, "2024-11-13",55),(4, "2022-01-01",56),(4, "2023-05-15",57),(4, "2023-06-10",58),(4, "2023-05-02",59),(4, "2023-07-12",60),(4, "2023-05-10",61),(4, "2023-06-01",62),(4, "2023-03-01",63),(4, "2024-05-25",64),(4, "2023-03-03",65),(4, "2024-01-23",66), /*Estoques do Produto 4*/
+(5, "2022-01-01",67),(5, "2024-02-15",68),(5, "2024-09-02",69),(5, "2025-05-10",70),(5, "2026-03-20",71),(5, "2024-11-13",72),(5, "2024-01-23",73),(5, "2022-06-01",74),(5, "2022-09-04",75),(5, "2023-03-10",76),(5, "2024-04-30",77),(5, "2023-03-01",78),(5, "2023-10-10",79),(5, "2023-08-09",80),(5, "2023-07-08",81); /*Estoques do Produto 5*/
 
 INSERT INTO Unidades(farmacia_id, cidade_id, nome) VALUES /*15*/
 (1,1,"Unidade 1"),(1,2,"Unidade 2"),(1,3,"Unidade 3"), /*unidades da farmácia 1*/
@@ -122,32 +122,32 @@ INSERT INTO Unidades(farmacia_id, cidade_id, nome) VALUES /*15*/
 (4,4,"Unidade 1"),(4,4,"Unidade 2"),(4,1,"Unidade 3"), /*unidades da farmácia 4*/
 (5,3,"Unidade 1"),(5,4,"Unidade 2"),(5,2,"Unidade 3"); /*unidades da farmácia 5*/
 
-INSERT INTO EstoqueUnidade(estoque_id, unidade_id, quantidade) VALUES /*AS 5 FARMÁCIAS POSSUI CADASTRADO OS 5 PRODUTOS*/
-(1,1,12),(2,2,18),(3,3,20),       /*quantidade do produto 1 na farmácia 1*/
-(4,4,8),(5,5,7),(6,6,12),        /*quantidade do produto 1 na farmácia 2*/
-(7,7,3),(8,8,6),(9,9,34),       /*quantidade do produto 1 na farmácia 3*/
-(10,10,44),(11,11,11),(12,12,9), /*quantidade do produto 1 na farmácia 4*/
-(13,13,88),(14,14,45),(15,15,4), /*quantidade do produto 1 na farmácia 5*/
-(16,1,22),(17,2,23),(18,3,24),    /*quantidade do produto 2 na farmácia 1*/
-(19,4,25),(20,5,26),(21,6,27),     /*quantidade do produto 2 na farmácia 2*/
-(22,7,28),(23,8,29),(24,9,30),    /*quantidade do produto 2 na farmácia 3*/
-(25,10,31),(26,11,32),(27,12,33), /*quantidade do produto 2 na farmácia 4*/
-(28,13,34),(29,14,35),(30,15,36), /*quantidade do produto 2 na farmácia 5*/
-(31,1,37),(32,2,38),(33,3,39),    /*quantidade do produto 3 na farmácia 1*/
-(34,4,40),(35,5,41),(36,6,42),    /*quantidade do produto 3 na farmácia 2*/
-(37,7,43),(38,8,44),(39,9,45),    /*quantidade do produto 3 na farmácia 3*/
-(40,10,46),(41,11,47),(42,12,48), /*quantidade do produto 3 na farmácia 4*/
-(43,13,49),(44,14,50),(45,15,51), /*quantidade do produto 3 na farmácia 5*/
-(46,1,52),(47,2,53),(48,3,54),    /*quantidade do produto 4 na farmácia 1*/
-(49,4,55),(50,5,56),(51,6,57),    /*quantidade do produto 4 na farmácia 2*/
-(52,7,58),(53,8,59),(54,9,60),    /*quantidade do produto 4 na farmácia 3*/
-(55,10,61),(56,11,62),(57,12,63), /*quantidade do produto 4 na farmácia 4*/
-(58,13,64),(59,14,65),(60,15,66), /*quantidade do produto 4 na farmácia 5*/
-(61,1,67),(62,2,68),(63,3,69),    /*quantidade do produto 5 na farmácia 1*/
-(64,4,70),(65,5,71),(66,6,72),    /*quantidade do produto 5 na farmácia 2*/
-(67,7,73),(68,8,74),(69,9,75),    /*quantidade do produto 5 na farmácia 3*/
-(70,10,76),(71,11,77),(72,12,78), /*quantidade do produto 5 na farmácia 4*/
-(73,13,79),(74,14,80),(75,15,81); /*quantidade do produto 5 na farmácia 5*/
+INSERT INTO EstoqueUnidade(estoque_id, unidade_id) VALUES /*AS 5 FARMÁCIAS POSSUI CADASTRADO OS 5 PRODUTOS*/
+(1,1),(2,2),(3,3),       /*quantidade do produto 1 na farmácia 1*/
+(4,4),(5,5),(6,6),        /*quantidade do produto 1 na farmácia 2*/
+(7,7),(8,8),(9,9),       /*quantidade do produto 1 na farmácia 3*/
+(10,10),(11,11),(12,12), /*quantidade do produto 1 na farmácia 4*/
+(13,13),(14,14),(15,15), /*quantidade do produto 1 na farmácia 5*/
+(16,1),(17,2),(18,3),    /*quantidade do produto 2 na farmácia 1*/
+(19,4),(20,5),(21,6),     /*quantidade do produto 2 na farmácia 2*/
+(22,7),(23,8),(24,9),    /*quantidade do produto 2 na farmácia 3*/
+(25,10),(26,11),(27,12), /*quantidade do produto 2 na farmácia 4*/
+(28,13),(29,14),(30,15), /*quantidade do produto 2 na farmácia 5*/
+(31,1),(32,2),(33,3),    /*quantidade do produto 3 na farmácia 1*/
+(34,4),(35,5),(36,6),    /*quantidade do produto 3 na farmácia 2*/
+(37,7),(38,8),(39,9),    /*quantidade do produto 3 na farmácia 3*/
+(40,10),(41,11),(42,12), /*quantidade do produto 3 na farmácia 4*/
+(43,13),(44,14),(45,15), /*quantidade do produto 3 na farmácia 5*/
+(46,1),(47,2),(48,3),    /*quantidade do produto 4 na farmácia 1*/
+(49,4),(50,5),(51,6),    /*quantidade do produto 4 na farmácia 2*/
+(52,7),(53,8),(54,9),    /*quantidade do produto 4 na farmácia 3*/
+(55,10),(56,11),(57,12), /*quantidade do produto 4 na farmácia 4*/
+(58,13),(59,14),(60,15), /*quantidade do produto 4 na farmácia 5*/
+(61,1),(62,2),(63,3),    /*quantidade do produto 5 na farmácia 1*/
+(64,4),(65,5),(66,6),    /*quantidade do produto 5 na farmácia 2*/
+(67,7),(68,8),(69,9),    /*quantidade do produto 5 na farmácia 3*/
+(70,10),(71,11),(72,12), /*quantidade do produto 5 na farmácia 4*/
+(73,13),(74,14),(75,15); /*quantidade do produto 5 na farmácia 5*/
 
 INSERT INTO Clientes(cidade_id,nome,telefone, idade) VALUES /*total registrado: 5*/
 (1,'João','(31)99533-5288', 57),
@@ -285,7 +285,7 @@ SELECT
     p.codigo_de_barra AS codigo,
     p.nome,
     p.fabricante,
-    SUM(eu.quantidade) AS quantidade,
+    SUM(e.quantidade) AS quantidade,
     c.nome AS cidade,
     c.uf
 FROM
@@ -411,7 +411,7 @@ SELECT
     P.codigo_de_barra AS codigo,
     P.nome,
     P.fabricante,
-    EU.quantidade,
+    E.quantidade,
     E.data_validade AS vencimento,
     E.id AS lote
 FROM
@@ -447,7 +447,7 @@ LIMIT 10;
 
 --- COMANDOS PARA A CONSULTA 7 ---
 
-SELECT p.nome as produto, p.fabricante as fabricante, f.nome AS farmacia, cid.nome as cidade, cid.uf as uf, SUM(eu.quantidade) AS qtd_vendas
+SELECT p.nome as produto, p.fabricante as fabricante, f.nome AS farmacia, cid.nome as cidade, cid.uf as uf, SUM(e.quantidade) AS qtd_vendas
 FROM Farmacias AS f 
 	JOIN Compras AS c ON f.id = c.farmacia_id 
 	JOIN Produtos_comprados AS pc ON c.id = pc.compra_id
@@ -504,9 +504,112 @@ GROUP BY
 
 --- COMANDOS PARA CRIAÇÃO E EXEMPLO DE USO DA FUNÇÃO ---
 
---- COMANDOS PARA CRIAÇÃO E EXEMPLO DE USO DA "STORED PROCEDURE" ---
--- Criação da stored procedure
+-- CRIAÇÃO
 
--- Exemplo de uso 
+-- Desativa a verificação de segurança para criação de funções
+SET GLOBAL log_bin_trust_function_creators = 1;
+DELIMITER //
+CREATE FUNCTION calcularTotalGasto(compraID INT)
+RETURNS DECIMAL(10, 2) -- retorna apenas valor escalar
+BEGIN
+    DECLARE total DECIMAL(10, 2);
+
+    SELECT SUM(quantidade * preco_unico)
+    INTO total
+    FROM Produtos_comprados
+    WHERE compra_id = compraID;
+
+    RETURN total;
+END //
+DELIMITER ;
+SET GLOBAL log_bin_trust_function_creators = 0;
+
+
+-- EXEMPLO
+
+CREATE TEMPORARY TABLE ResultadosTotais (
+    compra_id INT,
+    total_gasto DECIMAL(10, 2)
+);
+-- Preenche a tabela temporária usando a função
+INSERT INTO ResultadosTotais (compra_id, total_gasto)
+SELECT id, calcularTotalGasto(id) AS total_gasto
+FROM Compras;
+-- Exibe os resultados
+SELECT * FROM ResultadosTotais ORDER BY total_gasto DESC;
+
+
+--- COMANDOS PARA CRIAÇÃO E EXEMPLO DE USO DA "STORED PROCEDURE" ---
+
+-- CRIAÇÃO
+DELIMITER //
+CREATE PROCEDURE ObterQuantidadeProdutoNaFarmaciass(
+    IN farmacia_id_param INT,
+    IN produto_id_param INT
+)
+BEGIN
+    DECLARE quantidade_produto INT;
+    DECLARE nome_produto VARCHAR(100);
+    DECLARE nome_farmacia VARCHAR(100);
+
+    SELECT nome INTO nome_farmacia
+    FROM Farmacias
+    WHERE id = farmacia_id_param;
+
+    SELECT nome INTO nome_produto
+    FROM Produtos
+    WHERE id = produto_id_param;
+
+    SELECT COALESCE(SUM(Estoque.quantidade), 0) INTO quantidade_produto
+    FROM Estoque
+    INNER JOIN EstoqueUnidade eu ON Estoque.id = eu.estoque_id
+    INNER JOIN Unidades u ON eu.unidade_id = u.id
+    WHERE u.farmacia_id = farmacia_id_param AND Estoque.produto_id = produto_id_param;
+
+    SELECT nome_farmacia AS 'Nome da Farmácia', nome_produto AS 'Nome do Produto', quantidade_produto AS 'Quantidade Total do Produto no Estoque';
+END //
+DELIMITER ;
+
+-- EXEMPLO DA STORED PROCEDURE
+CALL ObterQuantidadeProdutoNaFarmaciass(1, 1); -- PRIMEIRO PARAMETRO: farmacia especifica , SEGUNDO PARAMETRO: produto especifico
+
 
 --- COMANDOS PARA CRIAÇÃO E EXEMPLO DE USO DA "TRIGGER" ---
+/* É necessário desligar o modo safe update , para nao gerar o erro: 
+Error Code: 1175. You are using safe update mode and you tried to update a table without a WHERE that uses a KEY column.  
+To disable safe mode, toggle the option in Preferences -> SQL Editor and reconnect.
+ */
+ 
+-- CRIAÇÃO
+DELIMITER //
+CREATE TRIGGER before_update_Produtos_comprados
+BEFORE UPDATE ON Produtos_comprados
+FOR EACH ROW
+BEGIN
+    -- Calcula o desconto de 15% no novo preço unitário ->e fornece o valor do produto com o desconto
+    SET NEW.desconto_preco_unico = NEW.preco_unico * 0.85;
+END;
+//
+DELIMITER ;
+
+-- EXEMPLOS DA TRIGGER
+-- produto_id=1 terao o mesmo preco_unico e receberam um desconto de 15%(pois a trigger será acionada), e assim sucessivamente para os demais
+UPDATE Produtos_comprados
+SET preco_unico = 22.0
+WHERE produto_id = 1;
+UPDATE Produtos_comprados
+SET preco_unico = 15.0
+WHERE produto_id = 2;
+UPDATE Produtos_comprados
+SET preco_unico = 40.0
+WHERE produto_id = 3;
+UPDATE Produtos_comprados
+SET preco_unico = 20.0
+WHERE produto_id = 4;
+UPDATE Produtos_comprados
+SET preco_unico = 30.0
+WHERE produto_id = 5;
+
+select produto_id, produtos.nome AS PRODUTOS , preco_unico as PrecoSemDesconto, desconto_preco_unico as PrecoDesconto
+from produtos_comprados
+join produtos ON produtos_comprados.produto_id = produtos.id;

@@ -1047,73 +1047,6 @@
           },
           {
             "objectType": "Table_LOGICAL",
-            "name": "EstoqueUnidade",
-            "comment": "",
-            "oldName": "",
-            "fields": [
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "id",
-                "type": "INTEGER",
-                "length": 0,
-                "decimals": 0,
-                "isNullable": false,
-                "defaultType": "None",
-                "defaultValue": "",
-                "comment": "",
-                "oldName": "id"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "estoque_id",
-                "type": "INTEGER",
-                "length": 0,
-                "decimals": 0,
-                "isNullable": true,
-                "defaultType": "None",
-                "defaultValue": "",
-                "comment": "",
-                "oldName": "estoque_id"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "unidade_id",
-                "type": "INTEGER",
-                "length": 0,
-                "decimals": 0,
-                "isNullable": true,
-                "defaultType": "None",
-                "defaultValue": "",
-                "comment": "",
-                "oldName": "unidade_id"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "quantidade",
-                "type": "INTEGER",
-                "length": 255,
-                "decimals": 0,
-                "isNullable": true,
-                "defaultType": "None",
-                "defaultValue": "",
-                "comment": "",
-                "oldName": "quantidade"
-              }
-            ],
-            "foreignKeys": [],
-            "indexes": [],
-            "uniques": [],
-            "primaryKey": {
-              "objectType": "PrimaryKey_LOGICAL",
-              "name": "",
-              "fields": [
-                "id"
-              ],
-              "oldName": ""
-            }
-          },
-          {
-            "objectType": "Table_LOGICAL",
             "name": "Produtos",
             "comment": "",
             "oldName": "",
@@ -1206,78 +1139,6 @@
                 "referencedTable": "Estoque",
                 "referencedFields": [
                   "produto_id"
-                ],
-                "sourceCardinality": "NoneRelationship",
-                "targetCardinality": "ManyRelationship",
-                "comment": "",
-                "oldName": ""
-              }
-            ],
-            "indexes": [],
-            "uniques": [],
-            "primaryKey": {
-              "objectType": "PrimaryKey_LOGICAL",
-              "name": "",
-              "fields": [
-                "id"
-              ],
-              "oldName": ""
-            }
-          },
-          {
-            "objectType": "Table_LOGICAL",
-            "name": "Estoque",
-            "comment": "",
-            "oldName": "",
-            "fields": [
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "id",
-                "type": "INTEGER",
-                "length": 0,
-                "decimals": 0,
-                "isNullable": false,
-                "defaultType": "None",
-                "defaultValue": "",
-                "comment": "",
-                "oldName": "id"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "produto_id",
-                "type": "INTEGER",
-                "length": 0,
-                "decimals": 0,
-                "isNullable": true,
-                "defaultType": "None",
-                "defaultValue": "",
-                "comment": "",
-                "oldName": "produto_id"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "data_validade",
-                "type": "DATE",
-                "length": 255,
-                "decimals": 0,
-                "isNullable": true,
-                "defaultType": "None",
-                "defaultValue": "",
-                "comment": "",
-                "oldName": "data_validade"
-              }
-            ],
-            "foreignKeys": [
-              {
-                "objectType": "ForeignKey_LOGICAL",
-                "name": "fk_Estoque_EstoqueUnidade_1",
-                "fields": [
-                  "id"
-                ],
-                "referencedSchema": "default",
-                "referencedTable": "EstoqueUnidade",
-                "referencedFields": [
-                  "estoque_id"
                 ],
                 "sourceCardinality": "NoneRelationship",
                 "targetCardinality": "ManyRelationship",
@@ -1477,6 +1338,145 @@
                 "oldName": ""
               }
             ],
+            "indexes": [],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [
+                "id"
+              ],
+              "oldName": ""
+            }
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "Estoque",
+            "comment": "",
+            "oldName": "",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "id",
+                "type": "INTEGER",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": false,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "produto_id",
+                "type": "INTEGER",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "produto_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "data_validade",
+                "type": "DATE",
+                "length": 255,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "data_validade"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "quantidade",
+                "type": "INTEGER",
+                "length": 255,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "quantidade"
+              }
+            ],
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_Estoque_EstoqueUnidade_1",
+                "fields": [
+                  "id"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "EstoqueUnidade",
+                "referencedFields": [
+                  "estoque_id"
+                ],
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "ManyRelationship",
+                "comment": "",
+                "oldName": ""
+              }
+            ],
+            "indexes": [],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [
+                "id"
+              ],
+              "oldName": ""
+            }
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "EstoqueUnidade",
+            "comment": "",
+            "oldName": "",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "id",
+                "type": "INTEGER",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": false,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "estoque_id",
+                "type": "INTEGER",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "estoque_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "unidade_id",
+                "type": "INTEGER",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "unidade_id"
+              }
+            ],
+            "foreignKeys": [],
             "indexes": [],
             "uniques": [],
             "primaryKey": {
@@ -1787,46 +1787,6 @@
           "isFontItalic": false
         },
         {
-          "type": "note",
-          "name": "Note 9",
-          "x": 450,
-          "y": 1390,
-          "width": 280,
-          "height": 170,
-          "text": "PERGUNTA ! e se o usuario fizer várias compras em diferentes farmácias dentro do App??? Então o entregador vai ter muitas entregas, sendo que muitas entregas podem estar associadas a uma compra ",
-          "style": "note",
-          "noteColor": {
-            "r": 255,
-            "g": 200,
-            "b": 255,
-            "a": 1
-          },
-          "fontName": "Arial Unicode MS",
-          "fontSize": 14,
-          "isFontBold": false,
-          "isFontItalic": false
-        },
-        {
-          "type": "note",
-          "name": "Note 4",
-          "x": 540,
-          "y": 1040,
-          "width": 240,
-          "height": 110,
-          "text": "Tabela Entregas é um intermediador para nao termos relação muitos para muitos entre Entregadores e Compras ",
-          "style": "note",
-          "noteColor": {
-            "r": 200,
-            "g": 255,
-            "b": 160,
-            "a": 1
-          },
-          "fontName": "Arial Unicode MS",
-          "fontSize": 14,
-          "isFontBold": false,
-          "isFontItalic": false
-        },
-        {
           "type": "table",
           "schemaName": "default",
           "tableName": "EstoqueUnidade",
@@ -1841,6 +1801,26 @@
             "b": 192,
             "a": 1
           }
+        },
+        {
+          "type": "note",
+          "name": "Note 3",
+          "x": 380,
+          "y": 1020,
+          "width": 130,
+          "height": 110,
+          "text": "Assumimos que cliente só tem um telefone",
+          "style": "note",
+          "noteColor": {
+            "r": 255,
+            "g": 232,
+            "b": 107,
+            "a": 1
+          },
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "isFontBold": false,
+          "isFontItalic": false
         }
       ],
       "layers": [],
