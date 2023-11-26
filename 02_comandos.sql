@@ -461,9 +461,28 @@ END //
 
 DELIMITER ;
 
--- Explicação:
+-- Explicação "STORED PROCEDURE":
 /*Stored Procedure chamada AtualizarEstoque que recebe dois parâmetros, atualiza a quantidade de um medicamento no estoque e recalcula o preço total do estoque 
 com base na nova quantidade e no preço unitário do medicamento. Essa Stored Procedure é um exemplo de como agrupar instruções SQL relacionadas em um bloco coeso,
 proporcionando benefícios como reusabilidade de código, manutenção simplificada, segurança, desempenho aprimorado, encapsulamento e suporte a transações.*/
 
 --- COMANDOS PARA CRIAÇÃO E EXEMPLO DE USO DA "TRIGGER" ---
+
+CREATE TRIGGER atualizar_Produtos_comprado
+AFTER INSERT ON compras
+FOR EACH ROW
+BEGIN
+    UPDATE Produtos_comprado
+    SET valor_total = valor_total + NEW.valor_do_pedido;
+END;
+
+-- Explicação "TRIGGER":
+/* A trigger atualizar_Produtos_comprado é acionada automaticamente após a inserção de um novo pedido na tabela pedidos. Quando acionada, ela atualiza 
+o valor total de vendas na tabela Produtos_comprado adicionando o valor do pedido recém-inserido. Essa é uma maneira de manter automaticamente atualizados os totais 
+de vendas sempre que novos pedidos são adicionados ao sistema.
+
+
+
+
+
+
