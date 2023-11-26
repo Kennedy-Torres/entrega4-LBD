@@ -502,6 +502,29 @@ GROUP BY
 
 --- COMANDOS PARA CRIAÇÃO E EXEMPLO DE USO DA "VIEW" ---
 
+CREATE VIEW venda_detalhada AS
+SELECT
+    c.id AS compra_id,
+    c.data_hora AS data_hora_compra,
+    f.nome AS farmacia,
+    cl.nome AS cliente,
+    p.nome AS produto,
+    pc.quantidade AS quantidade_comprada,
+    pc.preco_unico AS preco_unitario,
+    (pc.quantidade * pc.preco_unico) AS total
+FROM
+    Compras c
+JOIN
+    Farmacias f ON c.farmacia_id = f.id
+JOIN
+    Clientes cl ON c.cliente_id = cl.id
+JOIN
+    Produtos_comprados pc ON c.id = pc.compra_id
+JOIN
+    Produtos p ON pc.produto_id = p.id;
+
+SELECT * FROM venda_detalhada;
+
 --- COMANDOS PARA CRIAÇÃO E EXEMPLO DE USO DA FUNÇÃO ---
 
 -- CRIAÇÃO
